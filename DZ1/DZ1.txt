@@ -1,0 +1,66 @@
+✓
+
+1. DZ – Prijedlog projekta (9 bodova)
+
+Isporučiti, na hrvatskom jeziku:
+
+    ✓ prijedlog ili povelja projekta – 1 bod
+
+        naziv i kratica, kratki opis projekta, svrha, ciljevi, potencijalni korisnici ili tržište, isporuke te kriteriji za mjerenje uspješnosti
+
+    · plan projekta – 1.5 bod
+
+        faze i ključni koraci, Ganttogram s prekretnicama (milestones) isporuka
+
+        plan ne smije biti generički i mora se specifično odnositi na konkretni projekt!
+
+    · studiju izvedivosti prijedloga – 1.5 bod
+
+        ponderirano vrednovanje alternativa I analiza troškova
+
+            - ponderirano vrednovanje provesti opisom i brojčanom ocjenom "7±2" ključne karakteristike za tri alternative, uz argumentaciju ocjena
+
+            - analizu sadašnje vrijednosti troškova koristeći "7±2" ključna troška i koristi kroz barem 3 godine, uz argumentaciju troškova i koristi
+
+
+Isporučiti specifikaciju zahtjeva:
+
+    · Reprezentativni zahtjevi i njihovi prioriteti, za pojedinu vrstu zahtjeva – 1 bod
+
+        Poslovni zahtjevi (najmanje 2)
+
+        Korisnički zahtjevi (najmanje 3)
+
+        Funkcionalni zahtjevi (najmanje 5)
+
+        Nefunkcionalni (najmanje 2)
+
+    · Model poslovnog procesa – dijagram toka podataka u tri razine – 2.5 boda
+
+        Dijagram konteksta (0. razina)
+
+        Pregledni dijagram glavniih procesa, temeljem funkcionalnih zahtjeva (1. razina)
+
+        Detaljni dijagram za odabrani proces (2. razina)
+
+        Slike dijagrama kopirati u specifikaciju, izvorne datoteke priložiti u mapu
+
+    · Model funkcija, model stanja ili model programa (jedno od navedenog) – 1 bod
+
+        Dijagram dekompozicije funkcija
+
+        Dijagram promjene stanja
+
+        Mapa dijaloga
+
+        Matrica entiteti-događaji
+
+        Slike dijagrama kopirati u specifikaciju, izvorne datoteke priložiti
+
+    · Izvori porijekla zahtjeva (barem 3) - 0.5 boda
+
+        zapisnici s intervjua
+
+        reprezentativni primjeri prikupljenih dokumenata
+
+        web adrese (URL) surogata s pripadnom kopijom zaslona i objašnjenjem funkcionalnosti
