@@ -14,7 +14,7 @@ Isporučiti, na hrvatskom jeziku:
 
         plan ne smije biti generički i mora se specifično odnositi na konkretni projekt!
 
-    · studiju izvedivosti prijedloga – 1.5 bod
+    ✓ studiju izvedivosti prijedloga – 1.5 bod
 
         ponderirano vrednovanje alternativa I analiza troškova
 
