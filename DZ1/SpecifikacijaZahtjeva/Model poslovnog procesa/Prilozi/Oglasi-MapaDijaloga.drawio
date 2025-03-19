@@ -1,0 +1,237 @@
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36" version="26.1.1">
+  <diagram name="Page-1" id="u8OUOMh_TXwFTf2pYJAn">
+    <mxGraphModel dx="3592" dy="1527" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="diSHM19coxLC65TM07U4-1" value="&lt;font style=&quot;font-size: 18px;&quot;&gt;&lt;b&gt;Login stranica&lt;/b&gt;&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="140" y="90" width="180" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="diSHM19coxLC65TM07U4-2" value="&lt;font style=&quot;font-size: 18px;&quot;&gt;&lt;b&gt;Stranica za registraciju&lt;/b&gt;&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="130" y="370" width="180" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="diSHM19coxLC65TM07U4-4" value="" style="curved=1;endArrow=classic;html=1;rounded=0;exitX=0.2;exitY=1.009;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.433;entryY=-0.009;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="diSHM19coxLC65TM07U4-1" target="diSHM19coxLC65TM07U4-2">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="220" y="480" as="sourcePoint" />
+            <mxPoint x="220" y="630" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="170" y="290" />
+              <mxPoint x="180" y="320" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="diSHM19coxLC65TM07U4-5" value="&lt;span style=&quot;font-size: 17px;&quot;&gt;Pritisak na gumb za registraciju&lt;/span&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="40" y="270" width="140" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="diSHM19coxLC65TM07U4-6" value="&lt;span style=&quot;font-size: 18px;&quot;&gt;&lt;b&gt;Početna stranica&lt;/b&gt;&lt;/span&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="500" y="370" width="180" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="diSHM19coxLC65TM07U4-7" value="" style="endArrow=classic;html=1;rounded=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="diSHM19coxLC65TM07U4-2" target="diSHM19coxLC65TM07U4-6">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="330" y="520" as="sourcePoint" />
+            <mxPoint x="380" y="470" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="diSHM19coxLC65TM07U4-8" value="&lt;span style=&quot;font-size: 17px;&quot;&gt;Uspješna registracija&lt;/span&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="340" y="380" width="30" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="diSHM19coxLC65TM07U4-10" value="" style="curved=1;endArrow=classic;html=1;rounded=0;exitX=0.806;exitY=0.991;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.311;entryY=-0.009;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="diSHM19coxLC65TM07U4-1" target="diSHM19coxLC65TM07U4-6">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="370" y="300" as="sourcePoint" />
+            <mxPoint x="420" y="250" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="330" y="220" />
+              <mxPoint x="400" y="250" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="diSHM19coxLC65TM07U4-11" value="&lt;span style=&quot;font-size: 17px;&quot;&gt;Uspješna prijava (korisnik)&lt;/span&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="330" y="260" width="30" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="diSHM19coxLC65TM07U4-13" value="&lt;font style=&quot;font-size: 18px;&quot;&gt;&lt;b&gt;Stranica sa rezultatima pretrage&lt;/b&gt;&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="130" y="610" width="180" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="diSHM19coxLC65TM07U4-15" value="" style="curved=1;endArrow=classic;html=1;rounded=0;entryX=1;entryY=0.75;entryDx=0;entryDy=0;exitX=0.622;exitY=-0.036;exitDx=0;exitDy=0;exitPerimeter=0;" edge="1" parent="1" source="diSHM19coxLC65TM07U4-6" target="diSHM19coxLC65TM07U4-1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="530" y="320" as="sourcePoint" />
+            <mxPoint x="580" y="270" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="580" y="320" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="diSHM19coxLC65TM07U4-16" value="&lt;span style=&quot;font-size: 17px;&quot;&gt;Odjava&lt;/span&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="500" y="210" width="30" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="diSHM19coxLC65TM07U4-18" value="" style="curved=1;endArrow=classic;html=1;rounded=0;exitX=0;exitY=0.882;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.678;entryY=-0.018;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="diSHM19coxLC65TM07U4-6" target="diSHM19coxLC65TM07U4-13">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="400" y="730" as="sourcePoint" />
+            <mxPoint x="450" y="680" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="340" y="500" />
+              <mxPoint x="320" y="590" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="diSHM19coxLC65TM07U4-19" value="&lt;span style=&quot;font-size: 17px;&quot;&gt;Pretraga za oglasima&lt;/span&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="250" y="520" width="30" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="diSHM19coxLC65TM07U4-20" value="" style="curved=1;endArrow=classic;html=1;rounded=0;exitX=1.011;exitY=0.164;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.25;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="diSHM19coxLC65TM07U4-13" target="diSHM19coxLC65TM07U4-6">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="516" y="550" as="sourcePoint" />
+            <mxPoint x="340" y="675" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="398" y="557" />
+              <mxPoint x="450" y="540" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="diSHM19coxLC65TM07U4-21" value="&lt;span style=&quot;font-size: 17px;&quot;&gt;Pritisak na logo&lt;/span&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="399" y="580" width="30" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="diSHM19coxLC65TM07U4-23" value="&lt;font style=&quot;font-size: 18px;&quot;&gt;&lt;b&gt;Stranica s detaljima oglasa&lt;/b&gt;&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="130" y="830" width="180" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="diSHM19coxLC65TM07U4-24" value="" style="curved=1;endArrow=classic;html=1;rounded=0;exitX=0;exitY=0.882;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.206;entryY=-0.018;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" target="diSHM19coxLC65TM07U4-23">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="232" y="720" as="sourcePoint" />
+            <mxPoint x="70" y="861" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="180" y="750" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="diSHM19coxLC65TM07U4-25" value="&lt;span style=&quot;font-size: 17px;&quot;&gt;Pritisak na oglas&lt;/span&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="110" y="760" width="30" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="diSHM19coxLC65TM07U4-26" value="&lt;span style=&quot;font-size: 18px;&quot;&gt;&lt;b&gt;Administratorsko sučelje&lt;/b&gt;&lt;/span&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="-290" y="530" width="180" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="diSHM19coxLC65TM07U4-27" value="" style="curved=1;endArrow=classic;html=1;rounded=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;exitX=0.75;exitY=0;exitDx=0;exitDy=0;" edge="1" parent="1" source="diSHM19coxLC65TM07U4-26" target="diSHM19coxLC65TM07U4-1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="746" y="610" as="sourcePoint" />
+            <mxPoint x="540" y="417" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="-300" y="330" />
+              <mxPoint x="-210" y="210" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="diSHM19coxLC65TM07U4-28" value="&lt;span style=&quot;font-size: 17px;&quot;&gt;Odjava&lt;/span&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="-250" y="310" width="30" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="diSHM19coxLC65TM07U4-29" value="" style="curved=1;endArrow=classic;html=1;rounded=0;entryX=0.25;entryY=0;entryDx=0;entryDy=0;exitX=0;exitY=0.25;exitDx=0;exitDy=0;" edge="1" parent="1" source="diSHM19coxLC65TM07U4-1" target="diSHM19coxLC65TM07U4-26">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="239" y="99" as="sourcePoint" />
+            <mxPoint x="666" y="610" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="-10" y="110" />
+              <mxPoint x="-440" y="260" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="diSHM19coxLC65TM07U4-30" value="&lt;span style=&quot;font-size: 17px;&quot;&gt;Uspješna prijava (administartor)&lt;/span&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="-420" y="260" width="30" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="diSHM19coxLC65TM07U4-33" value="" style="curved=1;endArrow=classic;html=1;rounded=0;exitX=0.139;exitY=1.027;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="diSHM19coxLC65TM07U4-26" target="diSHM19coxLC65TM07U4-23">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="490" y="900" as="sourcePoint" />
+            <mxPoint x="540" y="850" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="-200" y="860" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="diSHM19coxLC65TM07U4-34" value="&lt;span style=&quot;font-size: 17px;&quot;&gt;Pritisak na prijavljeni oglas&lt;/span&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="-250" y="800" width="30" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="diSHM19coxLC65TM07U4-35" value="" style="curved=1;endArrow=classic;html=1;rounded=0;exitX=0.385;exitY=0.997;exitDx=0;exitDy=0;entryX=1;entryY=0;entryDx=0;entryDy=0;exitPerimeter=0;" edge="1" parent="1" source="diSHM19coxLC65TM07U4-6" target="diSHM19coxLC65TM07U4-23">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="542" y="480" as="sourcePoint" />
+            <mxPoint x="380" y="621" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="660" y="828" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="diSHM19coxLC65TM07U4-36" value="&lt;span style=&quot;font-size: 17px;&quot;&gt;Pritisak na oglas&lt;/span&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="510" y="700" width="30" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="diSHM19coxLC65TM07U4-37" value="" style="curved=1;endArrow=classic;html=1;rounded=0;exitX=1.011;exitY=0.164;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.556;entryY=0.997;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" target="diSHM19coxLC65TM07U4-6">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="310" y="858" as="sourcePoint" />
+            <mxPoint x="630" y="490" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="590" y="840" />
+              <mxPoint x="640" y="700" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="diSHM19coxLC65TM07U4-38" value="&lt;span style=&quot;font-size: 17px;&quot;&gt;Pritisak na logo&lt;/span&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="575" y="840" width="30" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="diSHM19coxLC65TM07U4-39" value="" style="curved=1;endArrow=classic;html=1;rounded=0;exitX=0;exitY=0.25;exitDx=0;exitDy=0;entryX=0.337;entryY=1.015;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="diSHM19coxLC65TM07U4-23" target="diSHM19coxLC65TM07U4-26">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="468" y="1095" as="sourcePoint" />
+            <mxPoint x="720" y="720" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="-120" y="760" />
+              <mxPoint x="-180" y="720" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="diSHM19coxLC65TM07U4-40" value="&lt;span style=&quot;font-size: 17px;&quot;&gt;Pritisak na logo (prijavljen kao administrator)&lt;/span&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="-90" y="690" width="30" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="diSHM19coxLC65TM07U4-41" value="&lt;span style=&quot;font-size: 18px;&quot;&gt;&lt;b&gt;Stranica za uređivanje korisničkog računa&lt;/b&gt;&lt;/span&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="990" y="220" width="180" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="diSHM19coxLC65TM07U4-42" value="" style="curved=1;endArrow=classic;html=1;rounded=0;entryX=0;entryY=0.25;entryDx=0;entryDy=0;exitX=1.006;exitY=0.124;exitDx=0;exitDy=0;exitPerimeter=0;" edge="1" parent="1" source="diSHM19coxLC65TM07U4-6" target="diSHM19coxLC65TM07U4-41">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="836" y="383" as="sourcePoint" />
+            <mxPoint x="630" y="190" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="770" y="310" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="diSHM19coxLC65TM07U4-44" value="" style="curved=1;endArrow=classic;html=1;rounded=0;entryX=1;entryY=0.75;entryDx=0;entryDy=0;exitX=0;exitY=0.75;exitDx=0;exitDy=0;" edge="1" parent="1" source="diSHM19coxLC65TM07U4-41" target="diSHM19coxLC65TM07U4-6">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="905" y="490" as="sourcePoint" />
+            <mxPoint x="620" y="476" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="850" y="400" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="diSHM19coxLC65TM07U4-45" value="&lt;span style=&quot;font-size: 17px;&quot;&gt;Pritisak na gumb za profil&lt;/span&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="730" y="250" width="160" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="diSHM19coxLC65TM07U4-46" value="&lt;span style=&quot;font-size: 17px;&quot;&gt;Spremljene promjene&lt;/span&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="830" y="390" width="160" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="diSHM19coxLC65TM07U4-52" value="&lt;span style=&quot;font-size: 18px;&quot;&gt;&lt;b&gt;Stranica za objavu oglasa&lt;/b&gt;&lt;/span&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="900" y="670" width="180" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="diSHM19coxLC65TM07U4-53" value="" style="endArrow=classic;html=1;rounded=0;exitX=1;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="diSHM19coxLC65TM07U4-6" target="diSHM19coxLC65TM07U4-52">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="750" y="610" as="sourcePoint" />
+            <mxPoint x="800" y="560" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="diSHM19coxLC65TM07U4-54" value="" style="endArrow=classic;html=1;rounded=0;exitX=0.193;exitY=0.003;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;exitPerimeter=0;" edge="1" parent="1" source="diSHM19coxLC65TM07U4-52">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="870" y="670" as="sourcePoint" />
+            <mxPoint x="640" y="480" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="diSHM19coxLC65TM07U4-56" value="&lt;span style=&quot;font-size: 17px;&quot;&gt;Pritisak na logo / Objavljen novi oglas&lt;/span&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="710" y="630" width="160" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="diSHM19coxLC65TM07U4-57" value="&lt;span style=&quot;font-size: 17px;&quot;&gt;Pritisak na gumb Nova objava&lt;/span&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="840" y="565" width="160" height="20" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

@@ -45,7 +45,7 @@ Isporučiti specifikaciju zahtjeva:
 
         Slike dijagrama kopirati u specifikaciju, izvorne datoteke priložiti u mapu
 
-    · Model funkcija, model stanja ili model programa (jedno od navedenog) – 1 bod
+    ✓ Model funkcija, model stanja ili model programa (jedno od navedenog) – 1 bod
 
         Dijagram dekompozicije funkcija
 
