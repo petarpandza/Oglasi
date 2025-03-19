@@ -25,7 +25,7 @@ Isporučiti, na hrvatskom jeziku:
 
 Isporučiti specifikaciju zahtjeva:
 
-    · Reprezentativni zahtjevi i njihovi prioriteti, za pojedinu vrstu zahtjeva – 1 bod
+    ✓ Reprezentativni zahtjevi i njihovi prioriteti, za pojedinu vrstu zahtjeva – 1 bod
 
         Poslovni zahtjevi (najmanje 2)
 
@@ -35,7 +35,7 @@ Isporučiti specifikaciju zahtjeva:
 
         Nefunkcionalni (najmanje 2)
 
-    · Model poslovnog procesa – dijagram toka podataka u tri razine – 2.5 boda
+    ✓ Model poslovnog procesa – dijagram toka podataka u tri razine – 2.5 boda
 
         Dijagram konteksta (0. razina)
 
