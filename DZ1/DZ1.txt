@@ -57,7 +57,7 @@ Isporučiti specifikaciju zahtjeva:
 
         Slike dijagrama kopirati u specifikaciju, izvorne datoteke priložiti
 
-    · Izvori porijekla zahtjeva (barem 3) - 0.5 boda
+    ✓ Izvori porijekla zahtjeva (barem 3) - 0.5 boda
 
         zapisnici s intervjua
 
