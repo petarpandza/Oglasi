@@ -1,0 +1,13 @@
+✓ Oblikovanje podataka - 2 boda - Bam sine
+✓	Konceptualni model podataka – ER dijagram (najmanje 7 entiteta)
+    ✓   Modelirati spojne i veze višeg stupnja, specijalizacije te ključne atribute
+✓	Model baze podataka – dijagram + skripta za kreiranje baze podataka i inicijalno punjenje podataka u prilogu
+    ✓	Dozvoljene baze podataka su: Microsoft SQL Server, ✓PosgreSQL✓, MongoDB ili baza podataka u oblaku (Firebase i slično), s tim da bude isporučen dijagram i skripta kako je prethodno navedeno.
+
+•	Objektni model - 4 boda
+•	    Dijagram aktivnosti za korisničku priču s barem 5 aktivnosti
+        •	Aktivnosti trebaju odgovarati specifikaciji zahtjeva
+    •	Slučajevi korištenja za dijagram aktivnosti 
+        •	navesti identifikator, naziv, sudionike i korake, alternative i podtokove
+•	Dijagram slučajeva korištenja 
+•	CRC kartica (razred-odgovornosti-suradnici) i pripadni dijagram razreda (razredi, atributi i veze)
