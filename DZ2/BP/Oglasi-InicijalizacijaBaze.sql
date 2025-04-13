@@ -6,7 +6,6 @@ CREATE DATABASE "oglasi-db";
 
 \c "oglasi-db"
 
-DROP SCHEMA IF EXISTS core CASCADE;
 CREATE SCHEMA core;
 
 CREATE TABLE core.user (
@@ -14,7 +13,7 @@ CREATE TABLE core.user (
     username VARCHAR(50) NOT NULL,
     password VARCHAR(100) NOT NULL,
     admin BOOLEAN NOT NULL DEFAULT FALSE,
-    creation_date DATE NOT NULL
+    creation_date DATE NOT NULL DEFAULT CURRENT_DATE
 );
 
 CREATE TABLE core.city (
@@ -27,10 +26,10 @@ CREATE TABLE core.ad (
     title VARCHAR(200) NOT NULL,
     short_desc VARCHAR(1000) NULL,
     long_desc VARCHAR(5000) NULL,
-    price REAL NULL, -- NULL - agreement
-    ad_type INTEGER NOT NULL, -- 1 = selling, 2 = buying
+    price REAL NULL, -- NULL - po dogovoru
+    ad_type INTEGER NOT NULL, -- 1 = prodaja, 2 = potražnja
     upload_time TIMESTAMP NOT NULL,
-    state INTEGER NOT NULL, -- 1 = new, 2 = used
+    state INTEGER NOT NULL, -- 1 = novo, 2 = korišteno
     id_user INTEGER NOT NULL REFERENCES core.user(id_user),
     id_city INTEGER NOT NULL REFERENCES core.city(id_city)
 );
@@ -571,6 +570,7 @@ INSERT INTO core.contact_information (contact_type, information, id_user) VALUES
 ('mob. telefon', '099-1234-567', 1),
 ('mail', 'marko@email.com', 1),
 ('telefon', '095-333-4444', 2),
+('telefon', '099-9876-543', 3),
 ('e-pošta', 'admin@oglasi.hr', 4);
 
 INSERT INTO core.ad (
