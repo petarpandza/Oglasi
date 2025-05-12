@@ -1,0 +1,15 @@
+.main-div {
+  height: 100%;
+  width: 100%;
+}
+.navbar-div {
+  height: 60px;
+  background-color: wheat;
+  opacity: 0.4;
+}
+
+.navbar-button {
+  position: absolute;
+  left: 10px;
+  top: 10px;
+}
