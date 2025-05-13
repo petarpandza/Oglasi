@@ -6,10 +6,26 @@
   height: 60px;
   background-color: wheat;
   opacity: 0.4;
+  display: flex;
+  justify-content: space-between;
 }
 
-.navbar-button {
-  position: absolute;
-  left: 10px;
-  top: 10px;
+.navbar-right {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 10px;
+  gap: 10px;
+}
+
+.navbar-logged-in {
+  display: flex;
+  gap: 10px;
+}
+
+.navbar-left {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 10px;
 }

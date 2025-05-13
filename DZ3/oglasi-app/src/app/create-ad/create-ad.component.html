@@ -1,0 +1,130 @@
+<div class="main-container">
+  <!-- main container for form -->
+  <div class="form-container">
+    <form [formGroup]="adForm" (ngSubmit)="onSubmit()">
+      <!-- ad name -->
+      <input type="text" id="name" placeholder="Ad name*" formControlName="name" required>
+      <div class="name-error" *ngIf="adForm.controls['name'].invalid && adForm.controls['name'].touched">
+          <span *ngIf="adForm.controls['name'].errors?.['required']">Required!</span>
+          <span *ngIf="adForm.controls['name'].errors?.['minlength']">Must be at least 4 characters long!</span>
+      </div>
+
+      <!-- ad price -->
+       <div class="price-input-wrapper">
+        <span class="currency-symbol">€</span>
+        <input type="number" id="price" placeholder="Price*" formControlName="price" required>
+       </div>
+      <div class="name-error" *ngIf="adForm.controls['price'].invalid && adForm.controls['price'].touched">
+          <span *ngIf="adForm.controls['price'].errors?.['required']">Required!</span>
+      </div>
+
+      <!-- ad description -->
+      <textarea class="description-input" id="description" placeholder="Description..." formControlName="description"></textarea>
+
+      <!-- ad city -->
+      <mat-form-field appearance="fill" subscriptSizing="dynamic">
+        <mat-label>City</mat-label>
+        <mat-select formControlName="city">
+          <!-- Search input inside dropdown -->
+          <mat-option>
+            <ngx-mat-select-search
+              [formControl]="cityFilterCtrl"
+              placeholderLabel="Search cities..."
+              noEntriesFoundLabel="No cities found">
+            </ngx-mat-select-search>
+          </mat-option>
+
+          <!-- Filtered options -->
+          <mat-option *ngFor="let city of filteredCities | async" [value]="city">
+            {{ city }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <!-- ad type -->
+      <mat-form-field appearance="fill" subscriptSizing="dynamic">
+        <mat-label>Type</mat-label>
+        <mat-select formControlName="type">
+          <mat-option value="buy">Buy</mat-option>
+          <mat-option value="sell">Sell</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <!-- ad state -->
+      <mat-form-field appearance="fill" subscriptSizing="dynamic">
+        <mat-label>State</mat-label>
+        <mat-select formControlName="state">
+          <mat-option value="new">New</mat-option>
+          <mat-option value="used">Used</mat-option>
+          <mat-option value="both" [disabled]="adForm.get('type')?.value !== 'buy'">
+            Both
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <!-- ad specifications -->
+      <div class="specs-div">
+        <input type="text" id="specKey" placeholder="specification" formControlName="specKey">
+        <input type="text" id="specValue" placeholder="value" formControlName="specValue">
+        <button type="button" mat-mini-fab color="secondary" (click)="addSpec()">
+          <mat-icon>add</mat-icon>
+        </button>
+      </div>
+
+      <!-- ad image -->
+      <div class="image-div">
+        <input type="text" id="image" placeholder="image URL" formControlName="image">
+        <button type="button" mat-mini-fab color="secondary" (click)="addPicture()">
+          <mat-icon>add</mat-icon>
+        </button>
+      </div>
+
+      <!-- Submit button -->
+      <input type="submit" value="Create" [disabled]="!adForm.valid">
+    </form>
+  </div>
+
+
+  <!-- right side for added elements -->
+  <div class="info-container">
+
+    <div class="spec-info-container">
+      <!-- added specs list -->
+      <div class="spec-info-div" *ngFor="let entry of specsEntries">
+        <div class="spec">
+          {{ entry[0] }} : {{ entry[1] }}
+        </div>
+        <button mat-mini-fab color="secondary" (click)="removeSpec(entry[0])">
+          <mat-icon>remove</mat-icon>
+        </button>
+      </div>
+    </div>
+
+    <div class="picture-info-container">
+
+      <!-- Image Preview Template -->
+      <ng-template #imageDialog let-data>
+        <div class="modal-container">
+          <img [src]="data" class="modal-image" alt="Preview">
+        </div>
+      </ng-template>
+
+      <!-- added Image list -->
+      <div class="picture-info-div" *ngFor="let picture of pictures">
+        <div class="picture-preview">
+          <img
+          src="{{ picture }}"
+          alt="Picture preview"
+          class="picture-preview-img"
+          (click)="openImageModal(picture, imageDialog)"
+          >
+        </div>
+        <button mat-mini-fab color="secondary" (click)="removePicture(picture)">
+          <mat-icon>remove</mat-icon>
+        </button>
+      </div>
+
+    </div>
+
+  </div>
+</div>

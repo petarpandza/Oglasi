@@ -1,9 +1,34 @@
 <div class="main-div">
+    <!-- navbar -->
     <div class="navbar-div">
+      <div class="navbar-left">
         <button mat-mini-fab class="navbar-button" routerLink="" color="secondary">
             <mat-icon>home</mat-icon>
+        </button>
+      </div>
+      <div class="navbar-right">
+
+        <div *ngIf="loggedIn; else notLoggedIn" class ="navbar-logged-in">
+          <button mat-mini-fab class="navbar-button" routerLink="/create" color="secondary">
+              <mat-icon>add</mat-icon>
           </button>
+          <button mat-mini-fab class="navbar-button" routerLink="/profile" color="secondary">
+              <mat-icon>account_circle</mat-icon>
+          </button>
+          <button mat-mini-fab class="navbar-button" routerLink="/login" color="secondary" (click)="logout()">
+              <mat-icon>logout</mat-icon>
+          </button>
+        </div>
+
+        <ng-template #notLoggedIn>
+          <button mat-mini-fab class="navbar-button" routerLink="" color="secondary" (click)="login()">
+              <mat-icon>login</mat-icon>
+          </button>
+        </ng-template>
+      </div>
     </div>
+
+    <!-- Main content area -->
     <div style="height: 90%; width: 100%;">
         <router-outlet></router-outlet>
     </div>

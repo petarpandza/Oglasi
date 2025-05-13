@@ -1,0 +1,195 @@
+.flex {
+  display: flex;
+  align-items: center;
+}
+
+.main-container {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  height: 100%;
+  flex-direction: row;
+}
+
+.form-container{
+  flex-direction: column;
+  display: flex;
+  border: black solid;
+  width: 60%;
+  height: 90%;
+  justify-content: space-around;
+  align-items: center;
+  max-width: 70%;
+  min-height: 600px;
+}
+
+.info-container {
+  display: flex;
+  flex-direction: column;
+  border: black solid;
+  width: 25%;
+  height: 90%;
+}
+
+.name-error {
+  color: red;
+  font-size: small;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  max-width: 450px;
+  width: 100%;
+  text-align: center;
+  gap: 5px;
+}
+
+form input {
+  height: 55px;
+  border-radius: 50px;
+  font-size: 1rem;
+  text-align: center;
+}
+
+form input.ng-invalid.ng-touched,
+form textarea.ng-invalid.ng-touched {
+  border: 2px solid red;
+}
+
+.ng-valid[required], .ng-valid.required {
+  border: 2px solid lightgreen;
+}
+
+label {
+  text-align: center;
+}
+
+.description-input {
+  min-height: 150px;
+  border-radius: 25px;
+  font-size: 1rem;
+  padding: 10px;
+  resize: none;
+  white-space: pre-wrap;
+}
+
+ngx-mat-select-search {
+  color: white;
+}
+
+
+
+.spec-info-container, .picture-info-container {
+  height: 50%;
+  overflow: auto;
+}
+
+.spec-info-div {
+  display: flex;
+  border: solid black;
+  justify-content: space-around;
+  align-items: center;
+  text-align: center;
+  margin-bottom: 5px;
+  padding: 1px;
+  border-radius: 50px;
+}
+
+.picture-info-div {
+  display: flex;
+  border: solid black;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  margin-bottom: 5px;
+  padding: 1px;
+  border-radius: 50px;
+  gap: 10px;
+}
+
+.picture-preview {
+  width: 75px;
+  height: 75px;
+  cursor: pointer;
+}
+
+.picture-preview-img {
+  width: 100%;
+  height: 100%;
+}
+
+.spec-info-div > input {
+  max-width: 40%;
+}
+
+.spec-info-div > button {
+  max-width: 20%;
+}
+
+.spec{
+  width: 80%;
+  height: auto;
+}
+
+
+.specs-div{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  width: auto;
+}
+
+.specs-div > input {
+  width: auto;
+  max-width: 50%;
+}
+
+.image-div{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  gap: 2px;
+}
+.image-div > input{
+  width: 90%;
+}
+
+.modal-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-image {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-radius: 8px;
+}
+
+.price-input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.currency-symbol {
+  position: absolute;
+  left: 20px;
+  color: rgba(0, 0, 0, 0.5); /* semi-transparent black */
+  font-size: 1rem;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.price-input-wrapper input {
+  padding-left: 40px; /* enough to make room for € symbol */
+  height: 55px;
+  border-radius: 50px;
+  font-size: 1rem;
+  text-align: left; /* or center if preferred */
+  width: 100%;
+}
