@@ -32,18 +32,15 @@ import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 })
 export class CreateAdComponent implements OnInit {
   adForm!: FormGroup;
+    /**
+   * @todo get cities from database when connected
+   */
   cities: string[] = CITIES;
   filteredCities: ReplaySubject<string[]> = new ReplaySubject<string[]>(1);
   cityFilterCtrl: FormControl = new FormControl();
   private _onDestroy = new Subject<void>();
-  specs = new Map<string, string>([
-        ["key1", "value1"],
-        ["key2", "value2"]
-    ]);
-  pictures: string[] = [
-    "https://i.natgeofe.com/n/548467d8-c5f1-4551-9f58-6817a8d2c45e/NationalGeographic_2572187_16x9.jpg?w=1200",
-    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS6d87zy2l97Gbuz1xheO71Fzw31vhLFurSyg&s"
-  ];
+  specs = new Map<string, string>();
+  pictures: string[] = [];
 
   constructor( private router : Router, private fb: FormBuilder, private dialog: MatDialog) { }
 
@@ -112,8 +109,19 @@ export class CreateAdComponent implements OnInit {
     this._onDestroy.complete();
   }
 
+  /**
+   * @todo send data to backend
+   */
   onSubmit(){
-    this.router.navigate(['/']);
+    const createdAd = new adInfo(
+      this.adForm.get('name')?.value,
+      this.adForm.get('description')?.value,
+      this.adForm.get('city')?.value,
+      this.adForm.get('price')?.value,
+      this.specs,
+      this.pictures
+    );
+    //this.router.navigate(['/']);
   }
 
   openImageModal(imageUrl: string, templateRef: TemplateRef<any>): void {

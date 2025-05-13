@@ -1,13 +1,17 @@
 export class adInfo {
-    lobbyName: string;
-    lobbyID: string;
-    game: string;
-    filled: boolean;
+  name: string;
+  description: string;
+  city: string;
+  price: number;
+  specs: Map<string, string>;
+  pictures: string[];
 
-    constructor(name: string, id: string, game: string){
-        this.lobbyName = name;
-        this.lobbyID = id;
-        this.game = game;
-        this.filled = false;
-    }
+  constructor(name: string, description: string, city: string, price: number, specs: Map<string, string>, pictures: string[]) {
+    this.name = name;
+    this.description = description;
+    this.city = city;
+    this.price = price;
+    this.specs = specs;
+    this.pictures = pictures;
+  }
 }

@@ -1,0 +1,25 @@
+.main-container {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  height: 100%;
+}
+
+.profile-container {
+  display: flex;
+  border: black solid;
+  width: 70%;
+  height: 90%;
+  justify-content: space-around;
+  align-items: flex-start;
+  max-width: 70%;
+  min-height: 600px;
+}
+
+mat-tab-group {
+  width: 100%;
+}
+
+.tab-icon, .tab-text {
+  color: black;
+}
