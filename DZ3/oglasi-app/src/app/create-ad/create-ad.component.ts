@@ -1,6 +1,6 @@
-import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { Component, OnInit, TemplateRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormControl, FormGroup, ReactiveFormsModule, Validators, FormBuilder } from "@angular/forms";
+import { FormControl, FormGroup, ReactiveFormsModule, Validators, FormBuilder, FormsModule } from "@angular/forms";
 import { Router } from '@angular/router';
 import { adInfo } from './ad-classes';
 import { CITIES } from '../../assets/data/cities';
@@ -25,7 +25,8 @@ import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
     NgxMatSelectSearchModule,
     ReactiveFormsModule,
     MatButtonModule,
-    MatIconModule
+    MatIconModule,
+    FormsModule
   ],
   templateUrl: './create-ad.component.html',
   styleUrl: './create-ad.component.css'
@@ -39,8 +40,24 @@ export class CreateAdComponent implements OnInit {
   filteredCities: ReplaySubject<string[]> = new ReplaySubject<string[]>(1);
   cityFilterCtrl: FormControl = new FormControl();
   private _onDestroy = new Subject<void>();
-  specs = new Map<string, string>();
-  pictures: string[] = [];
+  specs = new Map<string, string>(
+    [
+      ['Color', 'Black'],
+      ['Age', '2 years'],
+      ['Breed', 'Siamese'],
+      ['Weight', '4 kg'],
+      ['Vaccinated', 'Yes']
+    ]
+  );
+  pictures: string[] = [
+    "https://upload.wikimedia.org/wikipedia/commons/4/4d/Cat_November_2010-1a.jpg",
+    "https://i.natgeofe.com/n/548467d8-c5f1-4551-9f58-6817a8d2c45e/NationalGeographic_2572187_16x9.jpg?w=1200",
+    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTB6jQH76Aqx2EmQaDmxPhhwQWC3tys6xFyOg&s",
+    "https://images.squarespace-cdn.com/content/v1/607f89e638219e13eee71b1e/1684821560422-SD5V37BAG28BURTLIXUQ/michael-sum-LEpfefQf4rU-unsplash.jpg",
+    "https://icatcare.org/img/asset/aW1hZ2VzL2N1dG91dHMvYWRvYmVzdG9ja18zMTYzODM5NjkucG5n/adobestock_316383969.png?p=default&s=86bb641e805a56548c51f3385510026b",
+    "https://cdn.britannica.com/39/226539-050-D21D7721/Portrait-of-a-cat-with-whiskers-visible.jpg"
+  ];
+  editSpecData = { key: '', value: '' };
 
   constructor( private router : Router, private fb: FormBuilder, private dialog: MatDialog) { }
 
@@ -71,11 +88,6 @@ export class CreateAdComponent implements OnInit {
   private filterCities(search: string): string[] {
     const filterValue = search.toLowerCase();
     return this.cities.filter(city => city.toLowerCase().includes(filterValue));
-  }
-
-  removePicture(key: string){
-    const index = this.pictures.indexOf(key);
-    this.pictures.splice(index, 1);
   }
 
   addPicture(){
@@ -127,7 +139,6 @@ export class CreateAdComponent implements OnInit {
   openImageModal(imageUrl: string, templateRef: TemplateRef<any>): void {
     this.dialog.open(templateRef, {
       data: imageUrl,
-      panelClass: 'custom-dialog-container',
       hasBackdrop: true,
       disableClose: false,
       maxWidth: '90vw',
@@ -136,4 +147,43 @@ export class CreateAdComponent implements OnInit {
       height: 'auto'
     });
   }
+
+  openEditSpecModal(key: string, value: string, templateRef: TemplateRef<any>) {
+    this.editSpecData = { key, value };
+    this.dialog.open(templateRef, {
+      data: this.editSpecData,
+      panelClass: 'no-border-dialog',
+      disableClose: false,
+    })
+  };
+
+  openEditImageModal(url: string, index: number, dialogTemplate: TemplateRef<any>){
+      this.dialog.open(dialogTemplate, {
+        data: { url: url, index: index },
+        panelClass: 'no-border-dialog'
+    });
+  };
+
+  saveEditedSpec(data: { key: string, value: string }) {
+    this.specs.set(data.key, data.value);
+    this.dialog.closeAll();
+  };
+
+  saveEditedImage(data: { url: string; index: number }){
+    if (data.url.trim()) {
+      this.pictures[data.index] = data.url.trim();
+      this.dialog.closeAll();
+    }
+  };
+
+  removePicture(index: number){
+    this.pictures.splice(index, 1);
+    this.dialog.closeAll();
+  }
+
+  deleteSpec(key: string) {
+    this.specs.delete(key);
+    this.dialog.closeAll();
+  };
+
 }

@@ -93,23 +93,15 @@
         <div class="spec">
           {{ entry[0] }} : {{ entry[1] }}
         </div>
-        <button mat-mini-fab color="secondary" (click)="removeSpec(entry[0])">
-          <mat-icon>remove</mat-icon>
+        <button mat-mini-fab color="primary" (click)="openEditSpecModal(entry[0], entry[1], editSpecDialog)">
+          <mat-icon>edit</mat-icon>
         </button>
       </div>
     </div>
 
     <div class="picture-info-container">
-
-      <!-- Image Preview Template -->
-      <ng-template #imageDialog let-data>
-        <div class="modal-container">
-          <img [src]="data" class="modal-image" alt="Preview">
-        </div>
-      </ng-template>
-
       <!-- added Image list -->
-      <div class="picture-info-div" *ngFor="let picture of pictures">
+      <div class="picture-info-div" *ngFor="let picture of pictures; let i = index">
         <div class="picture-preview">
           <img
           src="{{ picture }}"
@@ -118,8 +110,8 @@
           (click)="openImageModal(picture, imageDialog)"
           >
         </div>
-        <button mat-mini-fab color="secondary" (click)="removePicture(picture)">
-          <mat-icon>remove</mat-icon>
+        <button mat-mini-fab color="primary" (click)="openEditImageModal(picture, i, editImageDialog)">
+          <mat-icon>edit</mat-icon>
         </button>
       </div>
 
@@ -127,3 +119,43 @@
 
   </div>
 </div>
+
+<!-- Image Preview Template -->
+<ng-template #imageDialog let-data>
+  <div class="modal-container">
+    <img [src]="data" class="modal-image-preview" alt="Preview">
+  </div>
+</ng-template>
+
+<!-- Spec Edit Modal -->
+<ng-template #editSpecDialog let-data>
+  <div class="edit-modal-container">
+    <mat-form-field appearance="fill" class="modal-field" subscriptSizing="dynamic">
+      <mat-label>Key</mat-label>
+      <input matInput [(ngModel)]="data.key" readonly>
+    </mat-form-field>
+    <mat-form-field appearance="fill" class="modal-field" subscriptSizing="dynamic">
+      <mat-label>Value</mat-label>
+      <input matInput [(ngModel)]="data.value">
+    </mat-form-field>
+    <div class="modal-actions">
+      <button mat-raised-button color="primary" (click)="saveEditedSpec(data)">Save</button>
+      <button mat-raised-button color="warn" (click)="deleteSpec(data.key)">Delete</button>
+    </div>
+  </div>
+</ng-template>
+
+<!-- Image Edit Modal -->
+<ng-template #editImageDialog let-data>
+  <div class="edit-modal-container">
+    <img [src]="data.url" class="modal-image" alt="Preview">
+    <mat-form-field appearance="fill" class="modal-field" subscriptSizing="dynamic">
+      <mat-label>Image URL</mat-label>
+      <input matInput [(ngModel)]="data.url">
+    </mat-form-field>
+    <div class="modal-actions">
+      <button mat-raised-button color="primary" (click)="saveEditedImage(data)">Save</button>
+      <button mat-raised-button color="warn" (click)="removePicture(data.url)">Delete</button>
+    </div>
+  </div>
+</ng-template>

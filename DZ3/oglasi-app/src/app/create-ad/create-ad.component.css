@@ -45,7 +45,7 @@ form {
   gap: 5px;
 }
 
-form input {
+.form-container > form input {
   height: 55px;
   border-radius: 50px;
   font-size: 1rem;
@@ -163,11 +163,38 @@ ngx-mat-select-search {
   align-items: center;
 }
 
-.modal-image {
+.edit-modal-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 100%;
   height: 100%;
+  gap: 10px;
+}
+
+.modal-image-preview {
+  max-width: 90vw;
+  max-height: 90vh;
   object-fit: contain;
   border-radius: 8px;
+}
+
+.modal-image {
+  width: 100px;
+  height: 100px;
+  object-fit: contain;
+  color: white;
+}
+
+.modal-field {
+  width: 100%;
+  height: 100%;
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
 }
 
 .price-input-wrapper {
@@ -193,3 +220,4 @@ ngx-mat-select-search {
   text-align: left; /* or center if preferred */
   width: 100%;
 }
+
