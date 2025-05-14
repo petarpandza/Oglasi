@@ -117,6 +117,7 @@ ngx-mat-select-search {
 .picture-preview-img {
   width: 100%;
   height: 100%;
+  object-fit: cover;
 }
 
 .spec-info-div > input {
@@ -130,6 +131,7 @@ ngx-mat-select-search {
 .spec{
   width: 80%;
   height: auto;
+  text-align: start;
 }
 
 
@@ -165,6 +167,16 @@ ngx-mat-select-search {
 
 .edit-modal-container {
   display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+
+.editImage-modal-container {
+  display: flex;
+  flex-direction: row;
   justify-content: center;
   align-items: center;
   width: 100%;
@@ -172,29 +184,48 @@ ngx-mat-select-search {
   gap: 10px;
 }
 
+.editImage-modal-image{
+  width: 50%;
+  height: 100%;
+}
+
+.edit-modal-values {
+  display: flex;
+  flex-direction: row;
+  gap: 5px;
+  flex-wrap: wrap;
+}
+
 .modal-image-preview {
   max-width: 90vw;
   max-height: 90vh;
-  object-fit: contain;
+  object-fit: cover;
   border-radius: 8px;
 }
 
+.editImage-modal-editable{
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+}
+
 .modal-image {
-  width: 100px;
-  height: 100px;
-  object-fit: contain;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
   color: white;
 }
 
 .modal-field {
-  width: 100%;
-  height: 100%;
+  min-width: 150px;
 }
 
 .modal-actions {
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
+  flex-direction: row;
   width: 100%;
+  gap: 5px;
 }
 
 .price-input-wrapper {
@@ -221,3 +252,8 @@ ngx-mat-select-search {
   width: 100%;
 }
 
+hr {
+  border: solid black;
+  width: 100%;
+  margin: 0;
+}

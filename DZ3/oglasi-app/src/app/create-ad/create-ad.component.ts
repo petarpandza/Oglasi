@@ -154,13 +154,17 @@ export class CreateAdComponent implements OnInit {
       data: this.editSpecData,
       panelClass: 'no-border-dialog',
       disableClose: false,
+      height: '300px',
+      width: '600px',
     })
   };
 
   openEditImageModal(url: string, index: number, dialogTemplate: TemplateRef<any>){
       this.dialog.open(dialogTemplate, {
         data: { url: url, index: index },
-        panelClass: 'no-border-dialog'
+        panelClass: 'no-border-dialog',
+        height: '400px',
+        width: '800px',
     });
   };
 
