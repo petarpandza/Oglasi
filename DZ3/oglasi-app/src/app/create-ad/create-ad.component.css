@@ -1,259 +1,269 @@
-.flex {
-  display: flex;
-  align-items: center;
+.main-container{
+  display:flex;
+  justify-content:space-around;
+  flex-direction:row;
+  height:calc(100vh - 70px);
+  background-color:wheat
 }
-
-.main-container {
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  height: 100%;
-  flex-direction: row;
-}
-
 .form-container{
-  flex-direction: column;
-  display: flex;
-  border: black solid;
-  width: 60%;
-  height: 90%;
-  justify-content: space-around;
-  align-items: center;
-  max-width: 70%;
-  min-height: 600px;
+  flex-direction:column;
+  display:flex;
+  flex-grow:1;
+  height:100%;
+  justify-content:space-around;
+  align-items:center;
+  padding-top:10px
 }
-
-.info-container {
-  display: flex;
-  flex-direction: column;
-  border: black solid;
-  width: 25%;
-  height: 90%;
+.info-container{
+  display:flex;
+  flex-direction:column;
+  outline:#000 solid;
+  width:45%;
+  height:calc(100vh - 60px)
 }
-
-.name-error {
-  color: red;
-  font-size: small;
+.name-error{
+  color:red;
+  font-size:small
 }
-
-form {
-  display: flex;
-  flex-direction: column;
-  max-width: 450px;
-  width: 100%;
-  text-align: center;
-  gap: 5px;
+form{
+  display:flex;
+  flex-direction:column;
+  width:600px;
+  text-align:center;
+  gap:20px
 }
-
-.form-container > form input {
-  height: 55px;
-  border-radius: 50px;
-  font-size: 1rem;
-  text-align: center;
+.form-container>form input{
+  height:55px;
+  border-radius:50px;
+  font-size:1rem;
+  text-align:center
 }
-
-form input.ng-invalid.ng-touched,
-form textarea.ng-invalid.ng-touched {
-  border: 2px solid red;
+form input.ng-invalid.ng-touched,form textarea.ng-invalid.ng-touched{
+    outline:2px solid red
 }
-
-.ng-valid[required], .ng-valid.required {
-  border: 2px solid lightgreen;
+.ng-valid.required,.ng-valid[required]{
+    outline:2px solid #90ee90
 }
-
-label {
-  text-align: center;
+label{
+  text-align:center
 }
-
-.description-input {
-  min-height: 150px;
-  border-radius: 25px;
-  font-size: 1rem;
-  padding: 10px;
-  resize: none;
-  white-space: pre-wrap;
+.description-input{
+  min-height:250px;
+  border-radius:25px;
+  font-size:1rem;
+  padding:10px;
+  resize:none;
+  white-space:pre-wrap
 }
-
-ngx-mat-select-search {
-  color: white;
+ngx-mat-select-search{
+  color:#fff
 }
-
-
-
-.spec-info-container, .picture-info-container {
-  height: 50%;
-  overflow: auto;
+.name-price-error-div{
+  display:flex;
+  flex-direction:column;
+  width:100%
 }
-
-.spec-info-div {
-  display: flex;
-  border: solid black;
-  justify-content: space-around;
-  align-items: center;
-  text-align: center;
-  margin-bottom: 5px;
-  padding: 1px;
-  border-radius: 50px;
+.spec-info-container{
+  height:50%;
+  display:flex;
+  align-items:center;
+  justify-content:space-evenly;
+  flex-direction:column;
+  overflow:auto
 }
-
-.picture-info-div {
-  display: flex;
-  border: solid black;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  margin-bottom: 5px;
-  padding: 1px;
-  border-radius: 50px;
-  gap: 10px;
+.picture-info-container{
+  flex-grow:1;
+  overflow:auto;
+  padding-top:10px
 }
-
-.picture-preview {
-  width: 75px;
-  height: 75px;
-  cursor: pointer;
+.picture-info-div-new{
+  width:25%;
+  position:relative
 }
-
-.picture-preview-img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+.image-edit-button-new{
+  position:absolute;
+  bottom:0;
+  right:0;
+  margin:10px
 }
-
-.spec-info-div > input {
-  max-width: 40%;
+.picture-info-container-new{
+  padding:10px;
+  display:flex;
+  flex-wrap:wrap;
+  gap:20px;
+  align-items:center;
+  justify-content:center
 }
-
-.spec-info-div > button {
-  max-width: 20%;
+.spec-info-div{
+  display:flex;
+  outline:solid #000;
+  justify-content:space-around;
+  align-items:center;
+  text-align:center;
+  margin-bottom:5px;
+  padding:1px;
+  border-radius:50px;
+  width:50%;
+  background-color:#fff
 }
-
+.picture-info-div{
+  display:flex;
+  outline:solid #000;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+  margin-bottom:5px;
+  padding:1px;
+  border-radius:50px;
+  gap:10px
+}
+.picture-preview{
+  width:75px;
+  height:75px;
+  cursor:pointer
+}
+.picture-preview-new{
+  cursor:pointer
+}
+.picture-preview-img-new{
+  width:100%;
+  aspect-ratio:1/1;
+  object-fit:cover
+}
+.picture-preview-img{
+  width:100%;
+  height:100%;
+  object-fit:cover
+}
+.spec-info-div>input{
+  max-width:40%
+}
+.spec-info-div>button{
+  max-width:20%
+}
 .spec{
-  width: 80%;
-  height: auto;
-  text-align: start;
+  width:80%;
+  height:auto;
+  text-align:start
 }
-
-
 .specs-div{
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-  align-items: center;
-  width: auto;
+  display:flex;
+  flex-direction:row;
+  justify-content:space-around;
+  align-items:center;
+  width:auto;
+  gap:5px
 }
-
-.specs-div > input {
-  width: auto;
-  max-width: 50%;
+.specs-div>input{
+  width:45%
 }
-
 .image-div{
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-  align-items: center;
-  gap: 2px;
+  display:flex;
+  flex-direction:row;
+  justify-content:space-around;
+  align-items:center;
+  gap:2px
 }
-.image-div > input{
-  width: 90%;
+.image-div>input{
+  width:90%
 }
-
-.modal-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+.modal-container{
+  display:flex;
+  justify-content:center;
+  align-items:center
 }
-
-.edit-modal-container {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  height: 100%;
+.edit-modal-container{
+  display:flex;
+  flex-direction:column;
+  justify-content:space-evenly;
+  align-items:center;
+  height:100%;
+  gap:5px
 }
-
-.editImage-modal-container {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  height: 100%;
-  gap: 10px;
+.editImage-modal-container{
+  display:flex;
+  flex-direction:row;
+  justify-content:center;
+  align-items:center;
+  height:100%;
+  gap:10px;
+  margin:5px
 }
-
 .editImage-modal-image{
-  width: 50%;
-  height: 100%;
+  width:50%;
+  height:100%
 }
-
-.edit-modal-values {
-  display: flex;
-  flex-direction: row;
-  gap: 5px;
-  flex-wrap: wrap;
+.edit-modal-values{
+  display:flex;
+  flex-direction:row;
+  gap:5px;
+  flex-wrap:wrap
 }
-
-.modal-image-preview {
-  max-width: 90vw;
-  max-height: 90vh;
-  object-fit: cover;
-  border-radius: 8px;
+.modal-image-preview{
+  max-width:90vw;
+  max-height:90vh;
+  object-fit:cover;
+  border-radius:8px
 }
-
 .editImage-modal-editable{
-  display: flex;
-  flex-direction: column;
-  width: 50%;
+  flex-grow:1;
+  display:flex;
+  flex-direction:column;
+  height:70%;
+  margin-top:auto;
+  justify-content:space-between
 }
-
-.modal-image {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  color: white;
+.modal-image{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  color:#fff;
+  border-radius:20px
 }
-
-.modal-field {
-  min-width: 150px;
+.modal-field{
+  min-width:150px
 }
-
-.modal-actions {
-  display: flex;
-  justify-content: center;
-  flex-direction: row;
-  width: 100%;
-  gap: 5px;
+.modal-actions{
+  display:flex;
+  justify-content:center;
+  flex-direction:row;
+  width:100%;
+  gap:5px
 }
-
-.price-input-wrapper {
-  position: relative;
-  display: flex;
-  align-items: center;
+.price-input-wrapper{
+  position:relative;
+  display:flex;
+  align-items:center
 }
-
-.currency-symbol {
-  position: absolute;
-  left: 20px;
-  color: rgba(0, 0, 0, 0.5); /* semi-transparent black */
-  font-size: 1rem;
-  pointer-events: none;
-  z-index: 1;
+.currency-symbol{
+  position:absolute;
+  left:20px;
+  color:rgba(0,0,0,.5);
+  font-size:1rem;
+  pointer-events:none;
+  z-index:1
 }
-
-.price-input-wrapper input {
-  padding-left: 40px; /* enough to make room for € symbol */
-  height: 55px;
-  border-radius: 50px;
-  font-size: 1rem;
-  text-align: left; /* or center if preferred */
-  width: 100%;
+.price-input-wrapper input{
+  padding-left:40px;
+  height:55px;
+  border-radius:50px;
+  font-size:1rem;
+  width:100%
 }
-
-hr {
-  border: solid black;
-  width: 100%;
-  margin: 0;
+.name-price-div{
+  display:flex;
+  flex-direction:row;
+  gap:10px
+}
+.dropdown-div{
+  display:flex;
+  flex-direction:row;
+  gap:10px
+}
+.sumbit-div>input{
+  width:40%;
+  background-color:white
+}
+.dropdown-error{
+  color:red
 }

@@ -1,18 +1,17 @@
 import { Component, OnInit, TemplateRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormControl, FormGroup, ReactiveFormsModule, Validators, FormBuilder, FormsModule } from "@angular/forms";
+import { FormControl, FormGroup, ReactiveFormsModule, Validators, FormsModule, AbstractControl } from "@angular/forms";
 import { Router } from '@angular/router';
 import { adInfo } from './ad-classes';
-import { CITIES } from '../../assets/data/cities';
 import { ReplaySubject, Subject } from 'rxjs';
 import { startWith, map, takeUntil } from 'rxjs/operators';
-import {MatButtonModule} from '@angular/material/button';
-import {MatIconModule} from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
 import { MatDialog } from '@angular/material/dialog';
-
 import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
+import { AdCreationService } from '../../services/ad-creation.service';
 
 @Component({
   selector: 'app-create-ad',
@@ -33,10 +32,7 @@ import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 })
 export class CreateAdComponent implements OnInit {
   adForm!: FormGroup;
-    /**
-   * @todo get cities from database when connected
-   */
-  cities: string[] = CITIES;
+  cities: string[] = [];
   filteredCities: ReplaySubject<string[]> = new ReplaySubject<string[]>(1);
   cityFilterCtrl: FormControl = new FormControl();
   private _onDestroy = new Subject<void>();
@@ -59,30 +55,48 @@ export class CreateAdComponent implements OnInit {
   ];
   editSpecData = { key: '', value: '' };
 
-  constructor( private router : Router, private fb: FormBuilder, private dialog: MatDialog) { }
+  constructor( private router : Router, private dialog: MatDialog, private service : AdCreationService) { }
 
   ngOnInit() {
-    this.adForm = this.fb.group({
-      name: ['', [Validators.required, Validators.minLength(4)]],
-      description: [''],
-      city: ['', Validators.required],
-      price: ['', [Validators.required]],
-      specKey: [''],
-      specValue: [''],
-      image: [''],
-      type: ['', Validators.required],
-      state: ['', Validators.required]
-    });
+    this.cities = this.service.getCities();
 
+    this.adForm = new FormGroup({
+      name: new FormControl('', [Validators.required, Validators.minLength(4)]),
+      price: new FormControl('', [Validators.required, Validators.min(0)]),
+      description: new FormControl(''),
+      city: new FormControl('', [Validators.required]),
+      type: new FormControl('', [Validators.required]),
+      state: new FormControl('', [
+        Validators.required,
+        (control: AbstractControl) => {
+          const type = this.adForm?.get('type')?.value;
+          return control.value === 'both' && type !== 'buy'
+            ? { invalidState: true }
+            : null;
+        }
+      ]),
+      specKey: new FormControl(''),
+      specValue: new FormControl(''),
+      image: new FormControl('')
+    });
     this.filteredCities.next(this.cities.slice());
 
     this.cityFilterCtrl.valueChanges
       .pipe(
-        startWith(''),
         takeUntil(this._onDestroy),
+        startWith(''),
         map(search => search ? this.filterCities(search) : this.cities.slice())
       )
       .subscribe(filtered => this.filteredCities.next(filtered));
+
+    this.adForm.get('type')?.valueChanges.subscribe(type => {
+      const stateControl = this.adForm.get('state');
+      stateControl?.enable();
+      if (type !== 'buy' && stateControl?.value === 'both') {
+        stateControl.setValue('');
+      }
+      stateControl?.updateValueAndValidity();
+    });
   }
 
   private filterCities(search: string): string[] {
@@ -121,9 +135,6 @@ export class CreateAdComponent implements OnInit {
     this._onDestroy.complete();
   }
 
-  /**
-   * @todo send data to backend
-   */
   onSubmit(){
     const createdAd = new adInfo(
       this.adForm.get('name')?.value,
@@ -133,6 +144,7 @@ export class CreateAdComponent implements OnInit {
       this.specs,
       this.pictures
     );
+    this.service.saveAd(createdAd);
     //this.router.navigate(['/']);
   }
 
@@ -154,8 +166,8 @@ export class CreateAdComponent implements OnInit {
       data: this.editSpecData,
       panelClass: 'no-border-dialog',
       disableClose: false,
-      height: '300px',
-      width: '600px',
+      height: '200px',
+      width: '500px',
     })
   };
 
@@ -189,5 +201,23 @@ export class CreateAdComponent implements OnInit {
     this.specs.delete(key);
     this.dialog.closeAll();
   };
+
+  generateErrorForControl(control: AbstractControl){
+    if(control.errors?.['required']){
+      return "Required";
+    }
+
+    if(control.errors?.['min']){
+      return "Minimum value is 0";
+    }
+
+    if(control.errors?.['minlength']){
+      return "Must be at least 4 characters long!";
+    }
+
+
+
+    return '';
+  }
 
 }

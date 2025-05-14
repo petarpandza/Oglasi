@@ -6,7 +6,8 @@ html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 .no-border-dialog .mat-mdc-dialog-surface {
-  border-radius: 0 !important;
+  border-radius: 20px;
   box-shadow: none !important;
   overflow-y: hidden;
+  background-color: darkcyan;
 }
