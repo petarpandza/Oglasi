@@ -1,8 +1,8 @@
 import { Component, OnInit, TemplateRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormControl, FormGroup, ReactiveFormsModule, Validators, FormsModule, AbstractControl } from "@angular/forms";
+import { FormControl, FormGroup, ReactiveFormsModule, Validators, FormsModule, AbstractControl, ValidationErrors, ValidatorFn } from "@angular/forms";
 import { Router } from '@angular/router';
-import { adInfo } from './ad-classes';
+import { adInfo } from '../models/ad-classes';
 import { ReplaySubject, Subject } from 'rxjs';
 import { startWith, map, takeUntil } from 'rxjs/operators';
 import { MatButtonModule } from '@angular/material/button';
@@ -55,10 +55,18 @@ export class CreateAdComponent implements OnInit {
   ];
   editSpecData = { key: '', value: '' };
 
-  constructor( private router : Router, private dialog: MatDialog, private service : AdCreationService) { }
+  constructor( private router : Router, private dialog: MatDialog, private adService : AdCreationService) { }
 
   ngOnInit() {
-    this.cities = this.service.getCities();
+    this.adService.getCities().subscribe({
+      next: (cities: string[]) => {
+        this.cities = cities;
+        this.filteredCities.next(cities);
+      },
+      error: (err) => {
+        console.error("Error fetching cities:", err);
+      }
+    });
 
     this.adForm = new FormGroup({
       name: new FormControl('', [Validators.required, Validators.minLength(4)]),
@@ -66,20 +74,12 @@ export class CreateAdComponent implements OnInit {
       description: new FormControl(''),
       city: new FormControl('', [Validators.required]),
       type: new FormControl('', [Validators.required]),
-      state: new FormControl('', [
-        Validators.required,
-        (control: AbstractControl) => {
-          const type = this.adForm?.get('type')?.value;
-          return control.value === 'both' && type !== 'buy'
-            ? { invalidState: true }
-            : null;
-        }
-      ]),
+      state: new FormControl('', [Validators.required]),
       specKey: new FormControl(''),
       specValue: new FormControl(''),
       image: new FormControl('')
     });
-    this.filteredCities.next(this.cities.slice());
+    this.adForm.get('state')?.addValidators(this.dynamicStateValidator(this.adForm));
 
     this.cityFilterCtrl.valueChanges
       .pipe(
@@ -144,7 +144,7 @@ export class CreateAdComponent implements OnInit {
       this.specs,
       this.pictures
     );
-    this.service.saveAd(createdAd);
+    this.adService.saveAd(createdAd);
     //this.router.navigate(['/']);
   }
 
@@ -220,4 +220,14 @@ export class CreateAdComponent implements OnInit {
     return '';
   }
 
+  private dynamicStateValidator(form: FormGroup): ValidatorFn {
+    return (control: AbstractControl): ValidationErrors | null => {
+      const type = form.get('type')?.value;
+      return control.value === 'both' && type !== 'buy'
+        ? { invalidState: true }
+        : null;
+    };
+  }
+
 }
+

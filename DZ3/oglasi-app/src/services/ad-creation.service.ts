@@ -1,17 +1,22 @@
 import { Injectable } from '@angular/core';
-import { adInfo } from '../app/create-ad/ad-classes';
-import { CITIES } from '../assets/data/cities';
+import { adInfo } from '../app/models/ad-classes';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AdCreationService {
 
-  constructor() { }
+  private baseUrl: string;
 
-  getCities() : string[] {
-    //replace with GET request from DB
-    return CITIES;
+  constructor(private http: HttpClient) {
+    this.baseUrl = 'http://localhost:8080';
+  }
+
+  getCities(): Observable<string[]> {
+    const url = `${this.baseUrl}/cities`;
+    return this.http.get<string[]>(url);
   }
 
   saveAd(ad : adInfo){
