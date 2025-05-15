@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
 import { adInfo } from '../app/models/ad-classes';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-
 @Injectable({
   providedIn: 'root'
 })
@@ -19,7 +18,12 @@ export class AdCreationService {
     return this.http.get<string[]>(url);
   }
 
-  saveAd(ad : adInfo){
-    //backend logic
+  saveAd(ad : adInfo) : Observable<adInfo> {
+    const url = `${this.baseUrl}/createAd`;
+    const plainAd = {
+      ...ad,
+      specs: Object.fromEntries(ad.specs)
+    };
+    return this.http.post<adInfo>(url, plainAd);
   }
 }

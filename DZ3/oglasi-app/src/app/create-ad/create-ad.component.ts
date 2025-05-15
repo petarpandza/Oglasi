@@ -140,12 +140,13 @@ export class CreateAdComponent implements OnInit {
       this.adForm.get('name')?.value,
       this.adForm.get('description')?.value,
       this.adForm.get('city')?.value,
+      this.adForm.get('type')?.value,
+      this.adForm.get('state')?.value,
       this.adForm.get('price')?.value,
       this.specs,
       this.pictures
     );
-    this.adService.saveAd(createdAd);
-    //this.router.navigate(['/']);
+    this.adService.saveAd(createdAd).subscribe();
   }
 
   openImageModal(imageUrl: string, templateRef: TemplateRef<any>): void {
@@ -175,6 +176,7 @@ export class CreateAdComponent implements OnInit {
       this.dialog.open(dialogTemplate, {
         data: { url: url, index: index },
         panelClass: 'no-border-dialog',
+        disableClose: false,
         height: '400px',
         width: '800px',
     });
