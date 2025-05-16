@@ -36,5 +36,9 @@ public class PropertyController {
 
     }
 
+    List<Property> getPropertiesByAd(Ad ad) {
+        return propertyRepository.getPropertyByIdAd(ad);
+    }
+
 
 }

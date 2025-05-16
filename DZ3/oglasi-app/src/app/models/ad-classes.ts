@@ -1,6 +1,8 @@
 export class adInfo {
-  name: string;
-  description: string;
+  id: number;
+  title: string;
+  shortDesc: string;
+  longDesc: string;
   city: string;
   type: string;
   state: string;
@@ -10,9 +12,11 @@ export class adInfo {
 
 
 
-  constructor(name: string, description: string, city: string, type: string, state: string, price: number, specs: Map<string, string>, pictures: string[]) {
-    this.name = name;
-    this.description = description;
+  constructor(id:number, title: string, shortDesc: string, longDesc: string, city: string, type: string, state: string, price: number, specs: Map<string, string>, pictures: string[]) {
+    this.id = id;
+    this.title = title;
+    this.shortDesc = shortDesc;
+    this.longDesc = longDesc;
     this.city = city;
     this.type = type;
     this.state = state;

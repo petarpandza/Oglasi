@@ -1,7 +1,6 @@
 import { Component, OnInit, TemplateRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators, FormsModule, AbstractControl, ValidationErrors, ValidatorFn } from "@angular/forms";
-import { Router } from '@angular/router';
 import { adInfo } from '../models/ad-classes';
 import { ReplaySubject, Subject } from 'rxjs';
 import { startWith, map, takeUntil } from 'rxjs/operators';
@@ -11,7 +10,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
-import { AdCreationService } from '../../services/ad-creation.service';
+import { AdService } from '../../services/ad-creation.service';
 
 @Component({
   selector: 'app-create-ad',
@@ -55,7 +54,7 @@ export class CreateAdComponent implements OnInit {
   ];
   editSpecData = { key: '', value: '' };
 
-  constructor( private router : Router, private dialog: MatDialog, private adService : AdCreationService) { }
+  constructor( private dialog: MatDialog, private adService : AdService) { }
 
   ngOnInit() {
     this.adService.getCities().subscribe({
@@ -69,9 +68,10 @@ export class CreateAdComponent implements OnInit {
     });
 
     this.adForm = new FormGroup({
-      name: new FormControl('', [Validators.required, Validators.minLength(4)]),
+      title: new FormControl('', [Validators.required, Validators.minLength(4)]),
       price: new FormControl('', [Validators.required, Validators.min(0)]),
-      description: new FormControl(''),
+      shortDesc: new FormControl(''),
+      longDesc: new FormControl(''),
       city: new FormControl('', [Validators.required]),
       type: new FormControl('', [Validators.required]),
       state: new FormControl('', [Validators.required]),
@@ -137,8 +137,10 @@ export class CreateAdComponent implements OnInit {
 
   onSubmit(){
     const createdAd = new adInfo(
-      this.adForm.get('name')?.value,
-      this.adForm.get('description')?.value,
+      0,
+      this.adForm.get('title')?.value,
+      this.adForm.get('shortDesc')?.value,
+      this.adForm.get('longDesc')?.value,
       this.adForm.get('city')?.value,
       this.adForm.get('type')?.value,
       this.adForm.get('state')?.value,

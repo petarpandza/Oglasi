@@ -9,7 +9,9 @@ import org.example.backend.services.UserRepository;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Service
@@ -30,9 +32,9 @@ public class AdController {
                 .orElseThrow(() -> new RuntimeException("User not found"));
         ad.setIdUser(user);
 
-        ad.setTitle(adDTO.getName());
-        ad.setLongDesc(adDTO.getDescription());
-
+        ad.setTitle(adDTO.getTitle());
+        ad.setShortDesc(adDTO.getShortDesc());
+        ad.setLongDesc(adDTO.getLongDesc());
         Optional<City> city = Optional.ofNullable(cityRepository.findByName(adDTO.getCity()).orElseThrow(() -> new RuntimeException("City not found")));
         city.ifPresent(ad::setIdCity);
 
@@ -49,9 +51,31 @@ public class AdController {
         List<Property> createdProperties = propertyController.parseProperties(adDTO.getSpecs(), savedAd);
         propertyController.saveMultipleProperties(createdProperties);
 
-        //potential to create an adResponseDTO class to respond to the creation request
-
         return savedAd;
 
+    }
+
+    public List<Ad> getUserAds(Long userId) {
+        User user = userRepository.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
+        return adRepository.findByIdUser(user);
+    }
+
+    public AdDTO getAdById(Long adId) {
+        Optional<Ad> ad = adRepository.findById(adId);
+        if (ad.isEmpty()) {
+            return new AdDTO();
+        }
+        AdDTO realAd = new AdDTO(ad.get());
+        Map<String, String> specs = new HashMap<>();
+        for (Property p : propertyController.getPropertiesByAd(ad.get())) {
+            specs.put(p.getPropertyName(), p.getValue());
+        }
+        List<String> pictures = imageController.getImagesByAd(ad.get()).stream()
+                .map(Image::getImageData)
+                .toList();
+        realAd.setSpecs(specs);
+        realAd.setPictures(pictures);
+
+        return realAd;
     }
 }

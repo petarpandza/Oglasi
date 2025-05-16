@@ -2,7 +2,7 @@
   <!-- main container for form -->
   <div class="form-container">
 
-    <form [formGroup]="adForm" (ngSubmit)="onSubmit()">
+    <form *ngIf="adForm" [formGroup]="adForm" (ngSubmit)="onSubmit()">
       <h2>Create Ad</h2>
       <div class="name-price-div">
         <!-- ad name -->
@@ -102,9 +102,10 @@
         </button>
       </div>
 
-      <!-- Submit button -->
-       <div class="sumbit-div">
-        <input type="submit" value="Create" [disabled]="!adForm.valid">
+      <!-- buttons -->
+       <div class="submit-div">
+        <input type="button" value="Update" [disabled]="!adForm.valid" (click)="updateAd()">
+        <input type="button" value="Delete" (click)="deleteAd()">
        </div>
     </form>
   </div>

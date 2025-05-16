@@ -5,10 +5,9 @@ import org.example.backend.beans.Ad;
 import org.example.backend.controllers.AdController;
 import org.example.backend.models.AdDTO;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 
 @RestController
@@ -19,8 +18,24 @@ public class AdResource {
     private final AdController adController;
 
     @PostMapping("/createAd")
-    public ResponseEntity<Ad> createAd(@RequestBody AdDTO adDTO){
+    public ResponseEntity<AdDTO> createAd(@RequestBody AdDTO adDTO) {
         Ad ad = adController.saveAd(adDTO);
-        return ResponseEntity.ok(ad);
+        return ResponseEntity.ok(new AdDTO(ad));
     }
+
+    @GetMapping("/getAds/{userId}")
+    public ResponseEntity<List<AdDTO>> getAds(@PathVariable Long userId) {
+        List<Ad> userAds = adController.getUserAds(userId);
+        List<AdDTO> response = userAds.stream()
+                .map(AdDTO::new)
+                .toList();
+        return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("/getAd/{adId}")
+    public ResponseEntity<AdDTO> getAdById(@PathVariable Long adId) {
+        return ResponseEntity.ok(adController.getAdById(adId));
+    }
+
+    //TODO MAKE DELETE AND UPDATE API CALLS
 }

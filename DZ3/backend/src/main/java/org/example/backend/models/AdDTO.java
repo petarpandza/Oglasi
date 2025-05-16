@@ -4,7 +4,9 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.example.backend.beans.Ad;
 
+import java.time.Instant;
 import java.util.List;
 import java.util.Map;
 
@@ -13,26 +15,27 @@ import java.util.Map;
 @AllArgsConstructor
 @NoArgsConstructor
 public class AdDTO {
-    private Long id;
-    private String name;
-    private String description;
-    private String city;
+    private Integer id;
+    private String title;
+    private String shortDesc;
+    private String longDesc;
+    private double price;
     private String type;
     private String state;
-    private double price;
+    private String city;
+    private Instant uploadTime;
     private Map<String, String> specs;
     private List<String> pictures;
 
-    @Override
-    public String toString() {
-        return  "id: " + id +
-                "\nname: " + name +
-                "\ndescription: " + description +
-                "\ncity: " + city +
-                "\ntype: " + type +
-                "\nstate: " + state +
-                "\nprice: " + price +
-                "\nspecs: " + specs +
-                "\npictures: " + pictures;
+    public AdDTO(Ad ad) {
+        this.id = ad.getId();
+        this.title = ad.getTitle();
+        this.shortDesc = ad.getShortDesc();
+        this.longDesc = ad.getLongDesc();
+        this.price = ad.getPrice();
+        this.type = ad.getAdType();
+        this.state = ad.getState();
+        this.uploadTime = ad.getUploadTime();
+        this.city = ad.getIdCity().getName();
     }
 }

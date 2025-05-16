@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
-export class AdCreationService {
+export class AdService {
 
   private baseUrl: string;
 
@@ -25,5 +25,15 @@ export class AdCreationService {
       specs: Object.fromEntries(ad.specs)
     };
     return this.http.post<adInfo>(url, plainAd);
+  }
+
+  getAdsByUser(userId : Number) : Observable<adInfo[]> {
+    const url = `${this.baseUrl}/getAds/` + userId;
+    return this.http.get<adInfo[]>(url);
+  }
+
+  getAdById(adId : number) : Observable<adInfo> {
+    const url = `${this.baseUrl}/getAd/` + adId;
+    return this.http.get<adInfo>(url);
   }
 }

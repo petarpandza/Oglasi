@@ -269,7 +269,14 @@ ngx-mat-select-search{
   flex-direction:row;
   gap:10px
 }
-.sumbit-div>input{
+
+.submit-div {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.submit-div>input{
   width:40%;
   background-color:white
 }

@@ -32,4 +32,8 @@ public class ImageController {
                 }).toList();
     }
 
+    List<Image> getImagesByAd(Ad ad) {
+        return imageRepository.getImageByIdAd((ad));
+    }
+
 }
