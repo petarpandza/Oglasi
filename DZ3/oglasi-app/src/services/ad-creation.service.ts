@@ -36,4 +36,17 @@ export class AdService {
     const url = `${this.baseUrl}/getAd/` + adId;
     return this.http.get<adInfo>(url);
   }
+  updateAd(newAd: adInfo): Observable<adInfo>{
+    const url = `${this.baseUrl}/updateAd`;
+    const plainAd = {
+      ...newAd,
+      specs: Object.fromEntries(newAd.specs)
+    };
+    return this.http.patch<adInfo>(url, plainAd);
+  }
+
+  deleteAd(adId : number){
+    const url = `${this.baseUrl}/deleteAd/` + adId;
+    return this.http.delete<adInfo>(url);
+  }
 }

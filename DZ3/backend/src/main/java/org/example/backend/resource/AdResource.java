@@ -37,5 +37,15 @@ public class AdResource {
         return ResponseEntity.ok(adController.getAdById(adId));
     }
 
-    //TODO MAKE DELETE AND UPDATE API CALLS
+    @PatchMapping("/updateAd")
+    public ResponseEntity<AdDTO> updateAdById(@RequestBody AdDTO adDTO) {
+        return ResponseEntity.ok(adController.updateAd(adDTO));
+    }
+
+    @DeleteMapping("/deleteAd/{adId}")
+    public ResponseEntity<?> DeleteAdById(@PathVariable Long adId) {
+        adController.deleteAd(adId);
+        return ResponseEntity.noContent().build();
+    }
+
 }

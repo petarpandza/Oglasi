@@ -78,4 +78,38 @@ public class AdController {
 
         return realAd;
     }
+
+    public AdDTO updateAd(AdDTO adDTO){
+        Optional<Ad> ad = adRepository.findById(Long.valueOf(adDTO.getId()));
+        if(ad.isPresent()) {
+            Ad adFromDB = ad.get();
+            adFromDB.setTitle(adDTO.getTitle());
+            adFromDB.setShortDesc(adDTO.getShortDesc());
+            adFromDB.setLongDesc(adDTO.getLongDesc());
+            adFromDB.setPrice((float) adDTO.getPrice());
+            adFromDB.setAdType(adDTO.getType());
+            adFromDB.setState(adDTO.getState());
+
+            AdDTO toReturn = new AdDTO(adRepository.save(adFromDB));
+
+            Map<String, String> specs = new HashMap<>();
+            for (Property p : propertyController.updateAdProperties(adFromDB, adDTO)) {
+                specs.put(p.getPropertyName(), p.getValue());
+            }
+            List<String> pictures = imageController.updateAdImages(adFromDB, adDTO).stream()
+                    .map(Image::getImageData)
+                    .toList();
+            toReturn.setSpecs(specs);
+            toReturn.setPictures(pictures);
+            return toReturn;
+
+        } else {
+            return new AdDTO();
+        }
+    }
+
+    public void deleteAd(Long adId){
+        Optional<Ad> ad = adRepository.findById(adId);
+        ad.ifPresent(adRepository::delete);
+    }
 }

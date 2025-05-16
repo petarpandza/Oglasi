@@ -99,17 +99,31 @@ export class EditAdComponent implements OnInit {
   }
 
   updateAd(){
-    /**
-     * @todo finish backend logic
-     */
-    this.router.navigate(['/profile'])
+    const updatedAd = new adInfo(
+      this.adId,
+      this.adForm.get('title')?.value,
+      this.adForm.get('shortDesc')?.value,
+      this.adForm.get('longDesc')?.value,
+      this.adForm.get('city')?.value,
+      this.adForm.get('type')?.value,
+      this.adForm.get('state')?.value,
+      this.adForm.get('price')?.value,
+      this.specs,
+      this.pictures
+    );
+    this.adService.updateAd(updatedAd).subscribe({
+      next: () => {
+        this.router.navigate(['/profile']);
+      }
+    });
   }
 
   deleteAd(){
-      /**
-     * @todo finish backend logic
-     */
-    this.router.navigate(['/profile'])
+    this.adService.deleteAd(this.adId).subscribe({
+      next: () => {
+        this.router.navigate(['/profile']);
+      }
+    });
   }
 
   ngOnDestroy() {

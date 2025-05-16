@@ -1,8 +1,10 @@
 package org.example.backend.controllers;
 
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.example.backend.beans.Ad;
 import org.example.backend.beans.Image;
+import org.example.backend.models.AdDTO;
 import org.example.backend.services.ImageRepository;
 import org.springframework.stereotype.Service;
 
@@ -34,6 +36,12 @@ public class ImageController {
 
     List<Image> getImagesByAd(Ad ad) {
         return imageRepository.getImageByIdAd((ad));
+    }
+
+    @Transactional
+    List<Image> updateAdImages(Ad adFromDB, AdDTO newAd) {
+        imageRepository.deleteImageByIdAd(adFromDB);
+        return saveMultipleImages(parseImages(newAd.getPictures(), adFromDB));
     }
 
 }

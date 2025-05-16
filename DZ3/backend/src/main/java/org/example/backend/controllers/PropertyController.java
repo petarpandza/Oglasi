@@ -1,8 +1,10 @@
 package org.example.backend.controllers;
 
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.example.backend.beans.Ad;
 import org.example.backend.beans.Property;
+import org.example.backend.models.AdDTO;
 import org.example.backend.services.PropertyRepository;
 import org.springframework.stereotype.Service;
 
@@ -34,6 +36,12 @@ public class PropertyController {
                 })
                 .toList();
 
+    }
+
+    @Transactional
+    List<Property> updateAdProperties(Ad adFromDB, AdDTO newAd) {
+        propertyRepository.deletePropertiesByIdAd(adFromDB);
+        return saveMultipleProperties(parseProperties(newAd.getSpecs(), adFromDB));
     }
 
     List<Property> getPropertiesByAd(Ad ad) {
