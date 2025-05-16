@@ -1,6 +1,7 @@
 package org.example.backend.resource;
 
 import lombok.RequiredArgsConstructor;
+import org.example.backend.beans.Ad;
 import org.example.backend.controllers.AdController;
 import org.example.backend.models.AdDTO;
 import org.springframework.http.ResponseEntity;
@@ -18,9 +19,8 @@ public class AdResource {
     private final AdController adController;
 
     @PostMapping("/createAd")
-    public ResponseEntity<AdDTO> createAd(@RequestBody AdDTO ad){
-        //TODO SAVE TO DATABASE DON'T FORGET TO EDIT RETURN VALUE
-        System.out.println(ad);
-        return ResponseEntity.ok(new AdDTO());
+    public ResponseEntity<Ad> createAd(@RequestBody AdDTO adDTO){
+        Ad ad = adController.saveAd(adDTO);
+        return ResponseEntity.ok(ad);
     }
 }
