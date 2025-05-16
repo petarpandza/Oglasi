@@ -1,10 +1,7 @@
 package org.example.backend.controllers;
 
 import lombok.RequiredArgsConstructor;
-import org.example.backend.beans.Ad;
-import org.example.backend.beans.City;
-import org.example.backend.beans.Property;
-import org.example.backend.beans.User;
+import org.example.backend.beans.*;
 import org.example.backend.models.AdDTO;
 import org.example.backend.services.AdRepository;
 import org.example.backend.services.CityRepository;
@@ -23,6 +20,7 @@ public class AdController {
     private final CityRepository cityRepository;
     private final PropertyController propertyController;
     private final UserRepository userRepository;
+    private final ImageController imageController;
 
     public Ad saveAd(AdDTO adDTO) {
         Ad ad = new Ad();
@@ -45,11 +43,13 @@ public class AdController {
 
         Ad savedAd = adRepository.save(ad);
 
-        //TODO PICTURES
-        //ad.setPictures(adDTO.getPictures());
+        List<Image> createdImages = imageController.parseImages(adDTO.getPictures(), savedAd);
+        imageController.saveMultipleImages(createdImages);
 
         List<Property> createdProperties = propertyController.parseProperties(adDTO.getSpecs(), savedAd);
         propertyController.saveMultipleProperties(createdProperties);
+
+        //potential to create an adResponseDTO class to respond to the creation request
 
         return savedAd;
 
