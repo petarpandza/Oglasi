@@ -5,8 +5,7 @@ import { AdService } from '../../services/ad-creation.service';
 import { CommonModule } from '@angular/common';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators, FormsModule, AbstractControl, ValidationErrors, ValidatorFn } from "@angular/forms";
 import { Router } from '@angular/router';
-import { ReplaySubject, Subject } from 'rxjs';
-import { startWith, map, takeUntil } from 'rxjs/operators';
+import { Subject } from 'rxjs';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDialog } from '@angular/material/dialog';
@@ -38,7 +37,7 @@ export class EditAdComponent implements OnInit {
 
   adForm!: FormGroup;
   cities: string[] = [];
-  filteredCities: ReplaySubject<string[]> = new ReplaySubject<string[]>(1);
+  filteredCities: string[] = [];
   cityFilterCtrl: FormControl = new FormControl();
   private _onDestroy = new Subject<void>();
   specs! : Map<string, string>;
@@ -79,23 +78,22 @@ export class EditAdComponent implements OnInit {
     this.adService.getCities().subscribe({
       next: (cities: string[]) => {
         this.cities = cities;
-        this.filteredCities.next(cities);
+        this.filteredCities = cities;
       },
       error: (err) => {
         console.error("Error fetching cities:", err);
       }
     });
-
-    this.cityFilterCtrl.valueChanges
-      .pipe(
-        takeUntil(this._onDestroy),
-        startWith(''),
-        map(search => search ? this.filterCities(search) : this.cities.slice())
-      )
-      .subscribe(filtered => this.filteredCities.next(filtered));
   }
 
   onSubmit(){
+  }
+
+  filterCities(searchQuery : string){
+    const lowerQuery = searchQuery.toLowerCase().trim();
+    this.filteredCities = this.cities.filter(city =>
+      city.toLowerCase().includes(lowerQuery)
+    );
   }
 
   updateAd(){
@@ -111,6 +109,7 @@ export class EditAdComponent implements OnInit {
       this.specs,
       this.pictures
     );
+
     this.adService.updateAd(updatedAd).subscribe({
       next: () => {
         this.router.navigate(['/profile']);
@@ -229,11 +228,6 @@ export class EditAdComponent implements OnInit {
 
   removeSpec(key: string): void {
     this.specs.delete(key);
-  }
-
-  private filterCities(search: string): string[] {
-    const filterValue = search.toLowerCase();
-    return this.cities.filter(city => city.toLowerCase().includes(filterValue));
   }
 
   addPicture(){

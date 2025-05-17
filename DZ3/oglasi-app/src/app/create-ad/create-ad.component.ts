@@ -2,8 +2,7 @@ import { Component, OnInit, TemplateRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators, FormsModule, AbstractControl, ValidationErrors, ValidatorFn } from "@angular/forms";
 import { adInfo } from '../models/ad-classes';
-import { ReplaySubject, Subject } from 'rxjs';
-import { startWith, map, takeUntil } from 'rxjs/operators';
+import { Subject } from 'rxjs';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDialog } from '@angular/material/dialog';
@@ -32,7 +31,7 @@ import { AdService } from '../../services/ad-creation.service';
 export class CreateAdComponent implements OnInit {
   adForm!: FormGroup;
   cities: string[] = [];
-  filteredCities: ReplaySubject<string[]> = new ReplaySubject<string[]>(1);
+  filteredCities: string[] = [];
   cityFilterCtrl: FormControl = new FormControl();
   private _onDestroy = new Subject<void>();
   specs = new Map<string, string>(
@@ -60,7 +59,7 @@ export class CreateAdComponent implements OnInit {
     this.adService.getCities().subscribe({
       next: (cities: string[]) => {
         this.cities = cities;
-        this.filteredCities.next(cities);
+        this.filteredCities = cities
       },
       error: (err) => {
         console.error("Error fetching cities:", err);
@@ -81,14 +80,6 @@ export class CreateAdComponent implements OnInit {
     });
     this.adForm.get('state')?.addValidators(this.dynamicStateValidator(this.adForm));
 
-    this.cityFilterCtrl.valueChanges
-      .pipe(
-        takeUntil(this._onDestroy),
-        startWith(''),
-        map(search => search ? this.filterCities(search) : this.cities.slice())
-      )
-      .subscribe(filtered => this.filteredCities.next(filtered));
-
     this.adForm.get('type')?.valueChanges.subscribe(type => {
       const stateControl = this.adForm.get('state');
       stateControl?.enable();
@@ -99,9 +90,11 @@ export class CreateAdComponent implements OnInit {
     });
   }
 
-  private filterCities(search: string): string[] {
-    const filterValue = search.toLowerCase();
-    return this.cities.filter(city => city.toLowerCase().includes(filterValue));
+  filterCities(searchQuery : string){
+    const lowerQuery = searchQuery.toLowerCase().trim();
+    this.filteredCities = this.cities.filter(city =>
+      city.toLowerCase().includes(lowerQuery)
+    );
   }
 
   addPicture(){

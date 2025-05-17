@@ -37,18 +37,21 @@
         <!-- ad city -->
         <mat-form-field appearance="fill">
           <mat-label>City</mat-label>
-          <mat-select formControlName="city">
+          <mat-select formControlName="city" (selectionChange)="filterCities('')" (closed)="filterCities('')">
             <!-- Search input inside dropdown -->
             <mat-option>
               <ngx-mat-select-search
+                #searchQuery
                 [formControl]="cityFilterCtrl"
                 placeholderLabel="Search cities..."
-                noEntriesFoundLabel="No cities found">
+                noEntriesFoundLabel="No cities found"
+                (input)="filterCities(searchQuery.value)"
+                >
               </ngx-mat-select-search>
             </mat-option>
 
             <!-- Filtered options -->
-            <mat-option *ngFor="let city of filteredCities | async" [value]="city">
+            <mat-option *ngFor="let city of filteredCities" [value]="city">
               {{ city }}
             </mat-option>
           </mat-select>

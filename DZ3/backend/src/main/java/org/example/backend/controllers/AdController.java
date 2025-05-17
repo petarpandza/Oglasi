@@ -89,6 +89,7 @@ public class AdController {
             adFromDB.setPrice((float) adDTO.getPrice());
             adFromDB.setAdType(adDTO.getType());
             adFromDB.setState(adDTO.getState());
+            adFromDB.setIdCity(cityRepository.findByName(adDTO.getCity()).orElseThrow(() -> new RuntimeException("City not found")));
 
             AdDTO toReturn = new AdDTO(adRepository.save(adFromDB));
 
