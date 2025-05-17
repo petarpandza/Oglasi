@@ -51,10 +51,10 @@
             <mat-option *ngFor="let city of filteredCities | async" [value]="city">
               {{ city }}
             </mat-option>
-            <mat-error class="dropdown-error" *ngIf="adForm.controls['city'].invalid && adForm.controls['city'].touched">
-              Please select a city
-            </mat-error>
           </mat-select>
+          <mat-error class="dropdown-error" *ngIf="adForm.controls['city'].invalid && adForm.controls['city'].touched">
+            Please select a city
+          </mat-error>
         </mat-form-field>
 
         <!-- ad type -->

@@ -16,7 +16,11 @@
           <span class="tab-text">My ads</span>
         </ng-template>
         <div class="my-ads-main-div">
-          <div class="my-ads-content-div" *ngFor="let ad of myAds">
+          <mat-form-field class="search-bar" subscriptSizing="dynamic">
+            <mat-label>Search my ads</mat-label>
+            <input #searchQuery type="text" matInput (input)="filterAds(searchQuery.value)" >
+          </mat-form-field>
+          <div class="my-ads-content-div" *ngFor="let ad of filteredAds">
             <div class="ad-info-div">
               <span class="title-span">{{ ad.title }}</span>
               <hr width="1" size="50"/>
