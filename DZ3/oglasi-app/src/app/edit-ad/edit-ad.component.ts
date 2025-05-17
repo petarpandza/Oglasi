@@ -1,7 +1,7 @@
 import { Component, OnInit, TemplateRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { adInfo } from '../models/ad-classes';
-import { AdService } from '../../services/ad-creation.service';
+import { AdService } from '../../services/ad.service';
 import { CommonModule } from '@angular/common';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators, FormsModule, AbstractControl, ValidationErrors, ValidatorFn } from "@angular/forms";
 import { Router } from '@angular/router';
@@ -12,6 +12,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
+import { CityService } from '../../services/city.service';
 
 
 @Component({
@@ -44,7 +45,7 @@ export class EditAdComponent implements OnInit {
   pictures!: string[];
   editSpecData = { key: '', value: '' };
 
-  constructor(private adService : AdService, private route: ActivatedRoute, private dialog: MatDialog, private router: Router) {}
+  constructor(private adService : AdService, private route: ActivatedRoute, private dialog: MatDialog, private router: Router, private cityService : CityService) {}
 
   ngOnInit(): void {
     this.adId = Number(this.route.snapshot.paramMap.get('id'));
@@ -75,7 +76,7 @@ export class EditAdComponent implements OnInit {
         });
       }
     });
-    this.adService.getCities().subscribe({
+    this.cityService.getCities().subscribe({
       next: (cities: string[]) => {
         this.cities = cities;
         this.filteredCities = cities;

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { adInfo } from '../app/models/ad-classes';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root'
@@ -11,11 +11,6 @@ export class AdService {
 
   constructor(private http: HttpClient) {
     this.baseUrl = 'http://localhost:8080';
-  }
-
-  getCities(): Observable<string[]> {
-    const url = `${this.baseUrl}/cities`;
-    return this.http.get<string[]>(url);
   }
 
   saveAd(ad : adInfo) : Observable<adInfo> {
@@ -36,6 +31,7 @@ export class AdService {
     const url = `${this.baseUrl}/getAd/` + adId;
     return this.http.get<adInfo>(url);
   }
+  
   updateAd(newAd: adInfo): Observable<adInfo>{
     const url = `${this.baseUrl}/updateAd`;
     const plainAd = {

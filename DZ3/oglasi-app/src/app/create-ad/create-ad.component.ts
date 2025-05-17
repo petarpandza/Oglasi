@@ -9,7 +9,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
-import { AdService } from '../../services/ad-creation.service';
+import { AdService } from '../../services/ad.service';
+import { CityService } from '../../services/city.service';
 
 @Component({
   selector: 'app-create-ad',
@@ -54,10 +55,10 @@ export class CreateAdComponent implements OnInit {
   ];
   editSpecData = { key: '', value: '' };
 
-  constructor( private dialog: MatDialog, private adService : AdService) { }
+  constructor( private dialog: MatDialog, private adService : AdService, private cityService : CityService) { }
 
   ngOnInit() {
-    this.adService.getCities().subscribe({
+    this.cityService.getCities().subscribe({
       next: (cities: string[]) => {
         this.cities = cities;
         this.filteredCities = cities

@@ -4,7 +4,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatButtonModule } from '@angular/material/button';
 import { adInfo } from '../models/ad-classes';
-import { AdService } from '../../services/ad-creation.service';
+import { AdService } from '../../services/ad.service';
 import { Router } from '@angular/router';
 import { MatInputModule } from '@angular/material/input';
 @Component({
