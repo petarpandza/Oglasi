@@ -1,4 +1,4 @@
-package org.example.backend.beans;
+package org.example.backend.model;
 
 import jakarta.persistence.*;
 import lombok.Getter;

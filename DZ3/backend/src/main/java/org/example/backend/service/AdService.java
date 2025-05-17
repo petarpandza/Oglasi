@@ -1,11 +1,11 @@
-package org.example.backend.controllers;
+package org.example.backend.service;
 
 import lombok.RequiredArgsConstructor;
-import org.example.backend.beans.*;
-import org.example.backend.models.AdDTO;
-import org.example.backend.services.AdRepository;
-import org.example.backend.services.CityRepository;
-import org.example.backend.services.UserRepository;
+import org.example.backend.model.*;
+import org.example.backend.dto.AdDTO;
+import org.example.backend.repository.AdRepository;
+import org.example.backend.repository.CityRepository;
+import org.example.backend.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
@@ -16,13 +16,13 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
-public class AdController {
+public class AdService {
 
     private final AdRepository adRepository;
     private final CityRepository cityRepository;
-    private final PropertyController propertyController;
+    private final PropertyService propertyService;
     private final UserRepository userRepository;
-    private final ImageController imageController;
+    private final ImageService imageService;
 
     public Ad saveAd(AdDTO adDTO) {
         Ad ad = new Ad();
@@ -45,19 +45,21 @@ public class AdController {
 
         Ad savedAd = adRepository.save(ad);
 
-        List<Image> createdImages = imageController.parseImages(adDTO.getPictures(), savedAd);
-        imageController.saveMultipleImages(createdImages);
+        List<Image> createdImages = imageService.parseImages(adDTO.getPictures(), savedAd);
+        imageService.saveMultipleImages(createdImages);
 
-        List<Property> createdProperties = propertyController.parseProperties(adDTO.getSpecs(), savedAd);
-        propertyController.saveMultipleProperties(createdProperties);
+        List<Property> createdProperties = propertyService.parseProperties(adDTO.getSpecs(), savedAd);
+        propertyService.saveMultipleProperties(createdProperties);
 
         return savedAd;
 
     }
 
-    public List<Ad> getUserAds(Long userId) {
+    public List<AdDTO> getUserAds(Long userId) {
         User user = userRepository.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
-        return adRepository.findByIdUser(user);
+        return adRepository.findByIdUser(user).stream()
+                .map(AdDTO::new)
+                .toList();
     }
 
     public AdDTO getAdById(Long adId) {
@@ -67,10 +69,10 @@ public class AdController {
         }
         AdDTO realAd = new AdDTO(ad.get());
         Map<String, String> specs = new HashMap<>();
-        for (Property p : propertyController.getPropertiesByAd(ad.get())) {
+        for (Property p : propertyService.getPropertiesByAd(ad.get())) {
             specs.put(p.getPropertyName(), p.getValue());
         }
-        List<String> pictures = imageController.getImagesByAd(ad.get()).stream()
+        List<String> pictures = imageService.getImagesByAd(ad.get()).stream()
                 .map(Image::getImageData)
                 .toList();
         realAd.setSpecs(specs);
@@ -94,10 +96,10 @@ public class AdController {
             AdDTO toReturn = new AdDTO(adRepository.save(adFromDB));
 
             Map<String, String> specs = new HashMap<>();
-            for (Property p : propertyController.updateAdProperties(adFromDB, adDTO)) {
+            for (Property p : propertyService.updateAdProperties(adFromDB, adDTO)) {
                 specs.put(p.getPropertyName(), p.getValue());
             }
-            List<String> pictures = imageController.updateAdImages(adFromDB, adDTO).stream()
+            List<String> pictures = imageService.updateAdImages(adFromDB, adDTO).stream()
                     .map(Image::getImageData)
                     .toList();
             toReturn.setSpecs(specs);

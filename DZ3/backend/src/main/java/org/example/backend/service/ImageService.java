@@ -1,18 +1,18 @@
-package org.example.backend.controllers;
+package org.example.backend.service;
 
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
-import org.example.backend.beans.Ad;
-import org.example.backend.beans.Image;
-import org.example.backend.models.AdDTO;
-import org.example.backend.services.ImageRepository;
+import org.example.backend.model.Ad;
+import org.example.backend.model.Image;
+import org.example.backend.dto.AdDTO;
+import org.example.backend.repository.ImageRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class ImageController {
+public class ImageService {
 
     private final ImageRepository imageRepository;
 

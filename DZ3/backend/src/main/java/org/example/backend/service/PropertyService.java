@@ -1,11 +1,11 @@
-package org.example.backend.controllers;
+package org.example.backend.service;
 
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
-import org.example.backend.beans.Ad;
-import org.example.backend.beans.Property;
-import org.example.backend.models.AdDTO;
-import org.example.backend.services.PropertyRepository;
+import org.example.backend.model.Ad;
+import org.example.backend.model.Property;
+import org.example.backend.dto.AdDTO;
+import org.example.backend.repository.PropertyRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,7 +13,7 @@ import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
-public class PropertyController {
+public class PropertyService {
 
     private final PropertyRepository propertyRepository;
 

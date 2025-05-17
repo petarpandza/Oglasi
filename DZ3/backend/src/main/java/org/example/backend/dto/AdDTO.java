@@ -1,10 +1,10 @@
-package org.example.backend.models;
+package org.example.backend.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.example.backend.beans.Ad;
+import org.example.backend.model.Ad;
 
 import java.time.Instant;
 import java.util.List;

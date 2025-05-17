@@ -1,4 +1,4 @@
-package org.example.backend.beans;
+package org.example.backend.model;
 
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -9,11 +9,11 @@ import org.hibernate.annotations.OnDeleteAction;
 @Getter
 @Setter
 @Entity
-@Table(name = "image", schema = "core")
-public class Image {
+@Table(name = "property", schema = "core")
+public class Property {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ordinal_number", nullable = false)
+    @Column(name = "id_property", nullable = false)
     private Integer id;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
@@ -21,7 +21,10 @@ public class Image {
     @JoinColumn(name = "id_ad", nullable = false)
     private Ad idAd;
 
-    @Column(name = "image_data", nullable = false, length = Integer.MAX_VALUE)
-    private String imageData;
+    @Column(name = "property_name", nullable = false)
+    private String propertyName;
+
+    @Column(name = "value", nullable = false)
+    private String value;
 
 }

@@ -1,15 +1,15 @@
-package org.example.backend.controllers;
+package org.example.backend.service;
 
 import lombok.RequiredArgsConstructor;
-import org.example.backend.beans.City;
-import org.example.backend.services.CityRepository;
+import org.example.backend.model.City;
+import org.example.backend.repository.CityRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class CityController {
+public class CityService {
 
     private final CityRepository cityRepository;
 

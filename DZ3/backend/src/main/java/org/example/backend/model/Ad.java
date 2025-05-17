@@ -1,4 +1,4 @@
-package org.example.backend.beans;
+package org.example.backend.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;

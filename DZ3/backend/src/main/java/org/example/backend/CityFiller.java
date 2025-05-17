@@ -18,7 +18,7 @@ public class CityFiller {
             throw new RuntimeException(e);
         }
 
-        Connection con = connectToDatabase(login.getProperty("DB_USER"), login.getProperty("DB_PASSWORD"));
+        Connection con = connectToDatabase(login.getProperty("DB_USER"), login.getProperty("DB_PASSWORD"), login.getProperty("DB_DATABASE"));
         System.out.println("Opened database successfully");
 
         fillDB(con);
@@ -26,11 +26,11 @@ public class CityFiller {
         con.close();
     }
 
-    private static Connection connectToDatabase(String username, String password) {
+    private static Connection connectToDatabase(String username, String password, String db) {
         try {
             Class.forName("org.postgresql.Driver");
             return DriverManager
-                    .getConnection("jdbc:postgresql://localhost:5432/oglasi-db",
+                    .getConnection("jdbc:postgresql://" + db,
                             username, password);
         } catch (Exception e) {
             System.err.println(e.getClass().getName() + ": " + e.getMessage());

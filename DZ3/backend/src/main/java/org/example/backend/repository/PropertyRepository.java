@@ -1,7 +1,7 @@
-package org.example.backend.services;
+package org.example.backend.repository;
 
-import org.example.backend.beans.Ad;
-import org.example.backend.beans.Property;
+import org.example.backend.model.Ad;
+import org.example.backend.model.Property;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
