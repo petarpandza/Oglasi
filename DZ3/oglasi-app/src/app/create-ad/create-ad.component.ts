@@ -29,6 +29,7 @@ import { AdService } from '../../services/ad-creation.service';
   styleUrl: './create-ad.component.css'
 })
 export class CreateAdComponent implements OnInit {
+  showSuccessMessage: boolean = false;
   adForm!: FormGroup;
   cities: string[] = [];
   filteredCities: string[] = [];
@@ -141,7 +142,19 @@ export class CreateAdComponent implements OnInit {
       this.specs,
       this.pictures
     );
-    this.adService.saveAd(createdAd).subscribe();
+    this.adService.saveAd(createdAd).subscribe({
+      next : (response => {
+        if(response){
+          this.showSuccessMessage = true
+          setTimeout(()=>{
+            this.showSuccessMessage = false;
+            this.adForm.reset();
+            this.specs.clear();
+            this.pictures.length = 0;
+          }, 3000)
+        }
+      })
+    });
   }
 
   openImageModal(imageUrl: string, templateRef: TemplateRef<any>): void {

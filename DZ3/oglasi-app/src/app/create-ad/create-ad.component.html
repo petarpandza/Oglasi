@@ -108,7 +108,9 @@
       <!-- Submit button -->
        <div class="sumbit-div">
         <input type="submit" value="Create" [disabled]="!adForm.valid">
+        <div *ngIf="showSuccessMessage" class="success-message">ad created successfully</div>
        </div>
+
     </form>
   </div>
 
