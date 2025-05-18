@@ -1,11 +1,15 @@
 #!/bin/bash
 
+source ../env.properties
+
+echo $DB_NAME
+
 CONTAINER_NAME=oglasi_container
-POSTGRES_USER=oglasi-user
-POSTGRES_PASSWORD=admin123
-POSTGRES_DB=oglasi-db
+POSTGRES_DB=$DB_NAME
+POSTGRES_USER=$DB_USER
+POSTGRES_PASSWORD=$DB_PASSWORD
 SQL_DIR=$(pwd)/scripts
-PORT=5432
+PORT=${DB_PORT:-5432}
 
 docker rm -f $CONTAINER_NAME > /dev/null 2>&1
 
