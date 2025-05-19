@@ -39,10 +39,11 @@ public class AdRepositoryTest {
 
         List<Ad> ads = List.of(
                 new Ad(null, "Bicikl", "Bicikl koristen", null, 150.0f, 1, 2, Instant.now(), user1, zagreb),
-                new Ad(null, "iPhone 14", "Razbijeno staklo", "Baterija 75%", 200.0f, 2, 1, Instant.now(), user1, zagreb),
+                new Ad(null, "iPhone 14", "Razbijeno staklo", "Baterija 75%", 200.0f, 2, 1, Instant.now(), user1,
+                        zagreb),
                 new Ad(null, "Farbanje zidova", "", "", 50.0f, 1, 1, Instant.now(), user2, zagreb),
-                new Ad(null, "Instrukcije iz matematike", "Trazim nekoga da mi pomogne s matematikom", "", 20.0f, 2, 1, Instant.now(), user2, zagreb)
-        );
+                new Ad(null, "Instrukcije iz matematike", "Trazim nekoga da mi pomogne s matematikom", "", 20.0f, 2, 1,
+                        Instant.now(), user2, zagreb));
 
         for (Ad ad : ads) {
             entityManager.persist(ad);
@@ -71,10 +72,11 @@ public class AdRepositoryTest {
 
         List<Ad> ads = List.of(
                 new Ad(null, "Bicikl", "Bicikl koristen", null, 150.0f, 1, 2, Instant.now(), user1, zagreb),
-                new Ad(null, "iPhone 14", "Razbijeno staklo", "Baterija 75%", 200.0f, 2, 1, Instant.now(), user1, zagreb),
+                new Ad(null, "iPhone 14", "Razbijeno staklo", "Baterija 75%", 200.0f, 2, 1, Instant.now(), user1,
+                        zagreb),
                 new Ad(null, "Farbanje zidova", "", "", 50.0f, 1, 1, Instant.now(), user2, zagreb),
-                new Ad(null, "Instrukcije iz matematike", "Trazim nekoga da mi pomogne s matematikom", "", 20.0f, 2, 1, Instant.now(), user2, zagreb)
-        );
+                new Ad(null, "Instrukcije iz matematike", "Trazim nekoga da mi pomogne s matematikom", "", 20.0f, 2, 1,
+                        Instant.now(), user2, zagreb));
 
         for (Ad ad : ads) {
             entityManager.persist(ad);
