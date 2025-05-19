@@ -3,7 +3,9 @@ package org.example.backend.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.ColumnDefault;
 
@@ -13,6 +15,8 @@ import java.time.Instant;
 @Setter
 @Entity
 @Table(name = "ad", schema = "core")
+@AllArgsConstructor
+@NoArgsConstructor
 public class Ad {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -34,12 +38,12 @@ public class Ad {
     @Column(name = "ad_type", nullable = false)
     private Integer adType;
 
+    @Column(name = "state", nullable = false)
+    private Integer state;
+
     @ColumnDefault("CURRENT_DATE")
     @Column(name = "upload_time", nullable = false)
     private Instant uploadTime;
-
-    @Column(name = "state", nullable = false)
-    private Integer state;
 
     @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
