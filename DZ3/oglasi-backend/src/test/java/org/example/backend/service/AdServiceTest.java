@@ -29,9 +29,9 @@ public class AdServiceTest {
 
         List<Ad> ads = List.of(
                 new Ad(1, "Bicikl", "Bicikl koristen", null, 150.0f, 1, 2, Instant.now(), null, null),
-                new Ad(1, "iPhone 14", "Razbijeno staklo", "Baterija 75%", 200.0f, 2, 1, Instant.now(), null, null),
-                new Ad(1, "Farbanje zidova", "", "", 50.0f, 1, 1, Instant.now(), null, null),
-                new Ad(1, "Instrukcije iz matematike", "Trazim nekoga da mi pomogne s matematikom", "", 20.0f, 2, 1, Instant.now(), null, null)
+                new Ad(2, "iPhone 14", "Razbijeno staklo", "Baterija 75%", 200.0f, 2, 1, Instant.now(), null, null),
+                new Ad(3, "Farbanje zidova", "", "", 50.0f, 1, 1, Instant.now(), null, null),
+                new Ad(4, "Instrukcije iz matematike", "Trazim nekoga da mi pomogne s matematikom", "", 20.0f, 2, 1, Instant.now(), null, null)
         );
         Mockito.when(adRepository.findAll()).thenReturn(ads);
 
