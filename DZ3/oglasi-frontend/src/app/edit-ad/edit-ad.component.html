@@ -109,8 +109,8 @@
         <mat-form-field appearance="fill">
           <mat-label>Type</mat-label>
           <mat-select formControlName="type">
-            <mat-option value="2">Buy</mat-option>
-            <mat-option value="1">Sell</mat-option>
+            <mat-option [value]="2">Buy</mat-option>
+            <mat-option [value]="1">Sell</mat-option>
           </mat-select>
           <mat-error
             class="dropdown-error"
@@ -126,9 +126,9 @@
         <mat-form-field appearance="fill">
           <mat-label>State</mat-label>
           <mat-select formControlName="state">
-            <mat-option value="1">New</mat-option>
-            <mat-option value="2">Used</mat-option>
-            <mat-option *ngIf="+adForm.get('type')?.value === 2" value="3">
+            <mat-option [value]="1">New</mat-option>
+            <mat-option [value]="2">Used</mat-option>
+            <mat-option *ngIf="+adForm.get('type')?.value === 2" [value]="3">
               Both
             </mat-option>
           </mat-select>

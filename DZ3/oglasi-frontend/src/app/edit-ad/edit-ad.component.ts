@@ -64,51 +64,52 @@ export class EditAdComponent implements OnInit {
 
   ngOnInit(): void {
     this.adId = Number(this.route.snapshot.paramMap.get('id'));
-    this.adService.getAdById(this.adId).subscribe({
-      next: (ad: adInfo) => {
-        const matchedCity = this.cities.find(
-          (city) => city.id_city === ad.city.id_city
-        );
-        this.adForm = new FormGroup({
-          title: new FormControl(ad.title, [
-            Validators.required,
-            Validators.minLength(4),
-          ]),
-          price: new FormControl(ad.price, [
-            Validators.required,
-            Validators.min(0),
-          ]),
-          shortDesc: new FormControl(ad.shortDesc),
-          longDesc: new FormControl(ad.longDesc),
-          city: new FormControl(matchedCity, [Validators.required]),
-          type: new FormControl(ad.type, [Validators.min(1)]),
-          state: new FormControl(ad.state, [Validators.min(1)]),
-          specKey: new FormControl(''),
-          specValue: new FormControl(''),
-          image: new FormControl(''),
-        });
-        this.specs = new Map<string, string>(Object.entries(ad.specs));
-        this.pictures = ad.pictures;
-        this.adForm
-          .get('state')
-          ?.addValidators(this.dynamicStateValidator(this.adForm));
-        this.adForm.get('type')?.valueChanges.subscribe((type) => {
-          const stateControl = this.adForm.get('state');
-          stateControl?.enable();
-          if (
-            type !== OglasiConstants.TYPE_BUY &&
-            +stateControl?.value === OglasiConstants.STATE_BOTH
-          ) {
-            stateControl?.setValue(0);
-          }
-          stateControl?.updateValueAndValidity();
-        });
-      },
-    });
     this.cityService.getCities().subscribe({
       next: (cities: City[]) => {
         this.cities = cities;
         this.filteredCities = cities;
+
+        this.adService.getAdById(this.adId).subscribe({
+          next: (ad: adInfo) => {
+            const matchedCity = this.cities.find(
+              (city) => city.id_city === ad.city.id_city
+            );
+            this.adForm = new FormGroup({
+              title: new FormControl(ad.title, [
+                Validators.required,
+                Validators.minLength(4),
+              ]),
+              price: new FormControl(ad.price, [
+                Validators.required,
+                Validators.min(0),
+              ]),
+              shortDesc: new FormControl(ad.shortDesc),
+              longDesc: new FormControl(ad.longDesc),
+              city: new FormControl(matchedCity, [Validators.required]),
+              type: new FormControl(ad.type, [Validators.min(1)]),
+              state: new FormControl(ad.state, [Validators.min(1)]),
+              specKey: new FormControl(''),
+              specValue: new FormControl(''),
+              image: new FormControl(''),
+            });
+            this.specs = new Map<string, string>(Object.entries(ad.specs));
+            this.pictures = ad.pictures;
+            this.adForm
+              .get('state')
+              ?.addValidators(this.dynamicStateValidator(this.adForm));
+            this.adForm.get('type')?.valueChanges.subscribe((type) => {
+              const stateControl = this.adForm.get('state');
+              stateControl?.enable();
+              if (
+                type !== OglasiConstants.TYPE_BUY &&
+                +stateControl?.value === OglasiConstants.STATE_BOTH
+              ) {
+                stateControl?.setValue(0);
+              }
+              stateControl?.updateValueAndValidity();
+            });
+          },
+        });
       },
       error: (err) => {
         console.error('Error fetching cities:', err);
