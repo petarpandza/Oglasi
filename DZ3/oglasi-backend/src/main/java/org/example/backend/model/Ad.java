@@ -8,6 +8,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import java.time.Instant;
 
@@ -48,11 +50,13 @@ public class Ad {
     @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "id_user", nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private User idUser;
 
     @JsonIgnoreProperties({"id_city"})
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "id_city", nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private City city;
 
 }

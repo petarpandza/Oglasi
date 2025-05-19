@@ -22,6 +22,11 @@ public class AdController {
         return ResponseEntity.ok(new AdDTO(adService.saveAd(adDTO)));
     }
 
+    @GetMapping("/getAllAds")
+    public ResponseEntity<List<AdDTO>> getAllAds() {
+        return ResponseEntity.ok(adService.getAllAds());
+    }
+
     @GetMapping("/getAds/{userId}")
     public ResponseEntity<List<AdDTO>> getAds(@PathVariable Long userId) {
         return ResponseEntity.ok(adService.getUserAds(userId));

@@ -24,11 +24,8 @@ public class AdRepositoryTest {
     @Autowired
     private AdRepository adRepository;
 
-    @Autowired
-    private UserRepository userRepository;
-
     @Test
-    void should() {
+    void shouldFindAdsForUser1() {
         User user1 = new User(null, "user1", "password1", false, LocalDate.now(), new LinkedHashSet<>());
         User user2 = new User(null, "user2", "password2", false, LocalDate.now(), new LinkedHashSet<>());
 
