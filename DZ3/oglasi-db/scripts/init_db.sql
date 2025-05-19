@@ -52,6 +52,22 @@ CREATE TABLE core.property (
                                value VARCHAR(255) NOT NULL
 );
 
+CREATE SEQUENCE core.user_id_seq START 100000 INCREMENT 1;
+CREATE SEQUENCE core.city_id_seq START 1 INCREMENT 1;
+CREATE SEQUENCE core.ad_id_seq START 100000 INCREMENT 1;
+CREATE SEQUENCE core.contact_information_id_seq START 100000 INCREMENT 1;
+CREATE SEQUENCE core.ad_report_id_seq START 100000 INCREMENT 1;
+CREATE SEQUENCE core.image_ordinal_seq START 100000 INCREMENT 1;
+CREATE SEQUENCE core.property_id_seq START 100000 INCREMENT 1;
+
+ALTER TABLE core.user ALTER COLUMN id_user SET DEFAULT nextval('core.user_id_seq');
+ALTER TABLE core.city ALTER COLUMN id_city SET DEFAULT nextval('core.city_id_seq');
+ALTER TABLE core.ad ALTER COLUMN id_ad SET DEFAULT nextval('core.ad_id_seq');
+ALTER TABLE core.contact_information ALTER COLUMN id_contact SET DEFAULT nextval('core.contact_information_id_seq');
+ALTER TABLE core.ad_report ALTER COLUMN id_report SET DEFAULT nextval('core.ad_report_id_seq');
+ALTER TABLE core.image ALTER COLUMN ordinal_number SET DEFAULT nextval('core.image_ordinal_number_seq');
+ALTER TABLE core.property ALTER COLUMN id_property SET DEFAULT nextval('core.property_id_seq');
+
 INSERT INTO core.city (name) VALUES
 ('Zagreb'),
 ('Split'),
@@ -550,13 +566,13 @@ INSERT INTO core.city (name) VALUES
 ('Trnava'),
 ('Sunja');
 
-INSERT INTO core.user (username, password, creation_date) VALUES
-('marko123', 'E3C4A8E68C23890091F9B9531EF3E0F805CE0A9378D6FB4BBCB6EED403C91342', '2025-01-01'),
-('petar456', '0A33A99F0D29627D8B811B4D3EFC53F720C0CC21098D5AF549D93DED5668323A', '2024-08-28'),
-('hrvoje789', '4F92111CFD0E48888742C44604F5F5A2C7674554F7B187A82299F51B46A30748', '2023-01-06');
+INSERT INTO core.user (id_user, username, password, creation_date) VALUES
+(1, 'marko123', 'E3C4A8E68C23890091F9B9531EF3E0F805CE0A9378D6FB4BBCB6EED403C91342', '2025-01-01'),
+(2, 'petar456', '0A33A99F0D29627D8B811B4D3EFC53F720C0CC21098D5AF549D93DED5668323A', '2024-08-28'),
+(3, 'hrvoje789', '4F92111CFD0E48888742C44604F5F5A2C7674554F7B187A82299F51B46A30748', '2023-01-06');
 
-INSERT INTO core.user (username, password, admin, creation_date) VALUES
-('admin', '8C6976E5B5410415BDE908BD4DEE15DFB167A9C873FC4BB8A81F6F2AB448A918', TRUE, '2022-01-01');
+INSERT INTO core.user (id_user, username, password, admin, creation_date) VALUES
+(4, 'admin', '8C6976E5B5410415BDE908BD4DEE15DFB167A9C873FC4BB8A81F6F2AB448A918', TRUE, '2022-01-01');
 
 INSERT INTO core.contact_information (contact_type, information, id_user) VALUES
 ('mob. telefon', '099-1234-567', 1),
@@ -566,10 +582,11 @@ INSERT INTO core.contact_information (contact_type, information, id_user) VALUES
 ('e-pošta', 'admin@oglasi.hr', 4);
 
 INSERT INTO core.ad (
-    title, short_desc, long_desc, price,
+    id_ad, title, short_desc, long_desc, price,
     ad_type, upload_time, state, id_user, id_city
 )
 VALUES (
+    1,
     'Prodajem bicikl',
     'Crni MTB bicikl, odličan za grad',
     'Bicikl je star godinu dana, malo korišten, u odličnom stanju.',
@@ -579,13 +596,9 @@ VALUES (
     1, -- novo
     1,
     1 -- Zagreb
-);
-
-INSERT INTO core.ad (
-    title, short_desc, long_desc, price,
-    ad_type, upload_time, state, id_user, id_city
-)
-VALUES (
+),
+(
+    2,
     'Prodajem stan',
     'Stan 50 m² u centru',
     'Stan se nalazi u centru Zagreba, renoviran, dostupan odmah.',
@@ -595,13 +608,9 @@ VALUES (
     2,
     2,
     1
-);
-
-INSERT INTO core.ad (
-    title, short_desc, long_desc, price,
-    ad_type, upload_time, state, id_user, id_city
-)
-VALUES (
+),
+(
+    3,
     'Poklanjam knjige',
     'Besplatne knjige za studente',
     'Književnost, ekonomija, informatika - poklanjam kolekciju od 30 knjiga.',
@@ -611,13 +620,9 @@ VALUES (
     2,
     3,
     3
-);
-
-INSERT INTO core.ad (
-    title, short_desc, long_desc, price,
-    ad_type, upload_time, state, id_user, id_city
-)
-VALUES (
+),
+(
+    4,
     'Prodajem iPhone 15',
     'Odličan mobitel, kao nov',
     'iPhone 13, 128GB, star 6 mjeseci, bez ogrebotina, full oprema.',
@@ -627,13 +632,9 @@ VALUES (
     1,
     3,
     3
-);
-
-INSERT INTO core.ad (
-    title, short_desc, long_desc, price,
-    ad_type, upload_time, state, id_user, id_city
-)
-VALUES (
+),
+(
+    5,
     'Prodajem gaming računalo',
     'i7, RTX 3070, 32GB RAM',
     'Savršeno za igre i rad. Kupljeno prošle godine, sve radi bez greške.',
