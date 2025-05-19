@@ -53,6 +53,12 @@ public class AdService {
 
     }
 
+    public List<AdDTO> getAllAds() {
+        return adRepository.findAll().stream()
+                .map(AdDTO::new)
+                .toList();
+    }
+
     public List<AdDTO> getUserAds(Long userId) {
         User user = userRepository.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
         return adRepository.findByIdUser(user).stream()
