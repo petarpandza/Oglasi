@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { adInfo } from '../app/models/ad-classes';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { OglasiConstants } from '../oglasi-constants';
 @Injectable({
   providedIn: 'root'
 })
@@ -10,7 +11,7 @@ export class AdService {
   private baseUrl: string;
 
   constructor(private http: HttpClient) {
-    this.baseUrl = 'http://localhost:8080';
+    this.baseUrl = OglasiConstants.BASE_URL + '/ad';
   }
 
   saveAd(ad : adInfo) : Observable<adInfo> {

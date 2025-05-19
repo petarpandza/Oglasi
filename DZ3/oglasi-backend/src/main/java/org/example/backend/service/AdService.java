@@ -35,8 +35,7 @@ public class AdService {
         ad.setTitle(adDTO.getTitle());
         ad.setShortDesc(adDTO.getShortDesc());
         ad.setLongDesc(adDTO.getLongDesc());
-        Optional<City> city = Optional.ofNullable(cityRepository.findByName(adDTO.getCity()).orElseThrow(() -> new RuntimeException("City not found")));
-        city.ifPresent(ad::setIdCity);
+        ad.setCity(adDTO.getCity());
 
         ad.setAdType(adDTO.getType());
         ad.setState(adDTO.getState());
@@ -81,9 +80,9 @@ public class AdService {
         return realAd;
     }
 
-    public AdDTO updateAd(AdDTO adDTO){
+    public AdDTO updateAd(AdDTO adDTO) {
         Optional<Ad> ad = adRepository.findById(Long.valueOf(adDTO.getId()));
-        if(ad.isPresent()) {
+        if (ad.isPresent()) {
             Ad adFromDB = ad.get();
             adFromDB.setTitle(adDTO.getTitle());
             adFromDB.setShortDesc(adDTO.getShortDesc());
@@ -91,7 +90,8 @@ public class AdService {
             adFromDB.setPrice((float) adDTO.getPrice());
             adFromDB.setAdType(adDTO.getType());
             adFromDB.setState(adDTO.getState());
-            adFromDB.setIdCity(cityRepository.findByName(adDTO.getCity()).orElseThrow(() -> new RuntimeException("City not found")));
+            adFromDB.setCity(adDTO.getCity());
+//            adFromDB.setIdCity(cityRepository.findByName(adDTO.getCity()).orElseThrow(() -> new RuntimeException("City not found")));
 
             AdDTO toReturn = new AdDTO(adRepository.save(adFromDB));
 
@@ -111,7 +111,7 @@ public class AdService {
         }
     }
 
-    public void deleteAd(Long adId){
+    public void deleteAd(Long adId) {
         Optional<Ad> ad = adRepository.findById(adId);
         ad.ifPresent(adRepository::delete);
     }

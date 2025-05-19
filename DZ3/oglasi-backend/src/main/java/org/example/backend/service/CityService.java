@@ -13,10 +13,7 @@ public class CityService {
 
     private final CityRepository cityRepository;
 
-    public List<String> getCities(){
-        return cityRepository.findAll()
-                .stream()
-                .map(City::getName)
-                .toList();
+    public List<City> getCities(){
+        return cityRepository.findAll();
     }
 }

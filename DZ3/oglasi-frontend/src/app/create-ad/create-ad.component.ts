@@ -1,6 +1,15 @@
 import { Component, OnInit, TemplateRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormControl, FormGroup, ReactiveFormsModule, Validators, FormsModule, AbstractControl, ValidationErrors, ValidatorFn } from "@angular/forms";
+import {
+  FormControl,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+  FormsModule,
+  AbstractControl,
+  ValidationErrors,
+  ValidatorFn,
+} from '@angular/forms';
 import { adInfo } from '../models/ad-classes';
 import { Subject } from 'rxjs';
 import { MatButtonModule } from '@angular/material/button';
@@ -11,6 +20,8 @@ import { MatInputModule } from '@angular/material/input';
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 import { AdService } from '../../services/ad.service';
 import { CityService } from '../../services/city.service';
+import { City } from '../models/city';
+import { OglasiConstants } from '../../oglasi-constants';
 
 @Component({
   selector: 'app-create-ad',
@@ -24,82 +35,79 @@ import { CityService } from '../../services/city.service';
     ReactiveFormsModule,
     MatButtonModule,
     MatIconModule,
-    FormsModule
+    FormsModule,
   ],
   templateUrl: './create-ad.component.html',
-  styleUrl: './create-ad.component.css'
+  styleUrl: './create-ad.component.css',
 })
 export class CreateAdComponent implements OnInit {
   showSuccessMessage: boolean = false;
   adForm!: FormGroup;
-  cities: string[] = [];
-  filteredCities: string[] = [];
+  cities: City[] = [];
+  filteredCities: City[] = [];
   cityFilterCtrl: FormControl = new FormControl();
   private _onDestroy = new Subject<void>();
-  specs = new Map<string, string>(
-    [
-      ['Color', 'Black'],
-      ['Age', '2 years'],
-      ['Breed', 'Siamese'],
-      ['Weight', '4 kg'],
-      ['Vaccinated', 'Yes']
-    ]
-  );
-  pictures: string[] = [
-    "https://upload.wikimedia.org/wikipedia/commons/4/4d/Cat_November_2010-1a.jpg",
-    "https://i.natgeofe.com/n/548467d8-c5f1-4551-9f58-6817a8d2c45e/NationalGeographic_2572187_16x9.jpg?w=1200",
-    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTB6jQH76Aqx2EmQaDmxPhhwQWC3tys6xFyOg&s",
-    "https://images.squarespace-cdn.com/content/v1/607f89e638219e13eee71b1e/1684821560422-SD5V37BAG28BURTLIXUQ/michael-sum-LEpfefQf4rU-unsplash.jpg",
-    "https://icatcare.org/img/asset/aW1hZ2VzL2N1dG91dHMvYWRvYmVzdG9ja18zMTYzODM5NjkucG5n/adobestock_316383969.png?p=default&s=86bb641e805a56548c51f3385510026b",
-    "https://cdn.britannica.com/39/226539-050-D21D7721/Portrait-of-a-cat-with-whiskers-visible.jpg"
-  ];
+  specs = new Map<string, string>();
+  pictures: string[] = [];
   editSpecData = { key: '', value: '' };
 
-  constructor( private dialog: MatDialog, private adService : AdService, private cityService : CityService) { }
+  constructor(
+    private dialog: MatDialog,
+    private adService: AdService,
+    private cityService: CityService
+  ) {}
 
   ngOnInit() {
     this.cityService.getCities().subscribe({
-      next: (cities: string[]) => {
+      next: (cities: City[]) => {
         this.cities = cities;
-        this.filteredCities = cities
+        this.filteredCities = cities;
       },
       error: (err) => {
-        console.error("Error fetching cities:", err);
-      }
+        console.error('Error fetching cities:', err);
+      },
     });
 
     this.adForm = new FormGroup({
-      title: new FormControl('', [Validators.required, Validators.minLength(4)]),
+      title: new FormControl('', [
+        Validators.required,
+        Validators.minLength(4),
+      ]),
       price: new FormControl('', [Validators.required, Validators.min(0)]),
       shortDesc: new FormControl(''),
       longDesc: new FormControl(''),
-      city: new FormControl('', [Validators.required]),
-      type: new FormControl('', [Validators.required]),
-      state: new FormControl('', [Validators.required]),
+      city: new FormControl(0, [Validators.required]),
+      type: new FormControl(0, [Validators.min(1)]),
+      state: new FormControl(0, [Validators.min(1)]),
       specKey: new FormControl(''),
       specValue: new FormControl(''),
-      image: new FormControl('')
+      image: new FormControl(''),
     });
-    this.adForm.get('state')?.addValidators(this.dynamicStateValidator(this.adForm));
+    this.adForm
+      .get('state')
+      ?.addValidators(this.dynamicStateValidator(this.adForm));
 
-    this.adForm.get('type')?.valueChanges.subscribe(type => {
+    this.adForm.get('type')?.valueChanges.subscribe((type) => {
       const stateControl = this.adForm.get('state');
       stateControl?.enable();
-      if (type !== 'buy' && stateControl?.value === 'both') {
-        stateControl.setValue('');
+      if (
+        type !== OglasiConstants.TYPE_BUY &&
+        +stateControl?.value === OglasiConstants.STATE_BOTH
+      ) {
+        stateControl?.setValue(0);
       }
       stateControl?.updateValueAndValidity();
     });
   }
 
-  filterCities(searchQuery : string){
+  filterCities(searchQuery: string) {
     const lowerQuery = searchQuery.toLowerCase().trim();
-    this.filteredCities = this.cities.filter(city =>
-      city.toLowerCase().includes(lowerQuery)
+    this.filteredCities = this.cities.filter((city) =>
+      city.name.toLowerCase().includes(lowerQuery)
     );
   }
 
-  addPicture(){
+  addPicture() {
     const picture = this.adForm.get('image')?.value?.trim();
     if (picture) {
       this.pictures.push(picture);
@@ -107,7 +115,7 @@ export class CreateAdComponent implements OnInit {
     }
   }
 
-  addSpec(){
+  addSpec() {
     const key = this.adForm.get('specKey')?.value?.trim();
     const value = this.adForm.get('specValue')?.value?.trim();
     if (key && value) {
@@ -130,7 +138,7 @@ export class CreateAdComponent implements OnInit {
     this._onDestroy.complete();
   }
 
-  onSubmit(){
+  onSubmit() {
     const createdAd = new adInfo(
       0,
       this.adForm.get('title')?.value,
@@ -144,17 +152,17 @@ export class CreateAdComponent implements OnInit {
       this.pictures
     );
     this.adService.saveAd(createdAd).subscribe({
-      next : (response => {
-        if(response){
-          this.showSuccessMessage = true
-          setTimeout(()=>{
+      next: (response) => {
+        if (response) {
+          this.showSuccessMessage = true;
+          setTimeout(() => {
             this.showSuccessMessage = false;
             this.adForm.reset();
             this.specs.clear();
             this.pictures.length = 0;
-          }, 3000)
+          }, 3000);
         }
-      })
+      },
     });
   }
 
@@ -166,7 +174,7 @@ export class CreateAdComponent implements OnInit {
       maxWidth: '90vw',
       maxHeight: '90vh',
       width: 'auto',
-      height: 'auto'
+      height: 'auto',
     });
   }
 
@@ -178,32 +186,36 @@ export class CreateAdComponent implements OnInit {
       disableClose: false,
       height: '200px',
       width: '500px',
-    })
-  };
-
-  openEditImageModal(url: string, index: number, dialogTemplate: TemplateRef<any>){
-      this.dialog.open(dialogTemplate, {
-        data: { url: url, index: index },
-        panelClass: 'no-border-dialog',
-        disableClose: false,
-        height: '400px',
-        width: '800px',
     });
-  };
+  }
 
-  saveEditedSpec(data: { key: string, value: string }) {
+  openEditImageModal(
+    url: string,
+    index: number,
+    dialogTemplate: TemplateRef<any>
+  ) {
+    this.dialog.open(dialogTemplate, {
+      data: { url: url, index: index },
+      panelClass: 'no-border-dialog',
+      disableClose: false,
+      height: '400px',
+      width: '800px',
+    });
+  }
+
+  saveEditedSpec(data: { key: string; value: string }) {
     this.specs.set(data.key, data.value);
     this.dialog.closeAll();
-  };
+  }
 
-  saveEditedImage(data: { url: string; index: number }){
+  saveEditedImage(data: { url: string; index: number }) {
     if (data.url.trim()) {
       this.pictures[data.index] = data.url.trim();
       this.dialog.closeAll();
     }
-  };
+  }
 
-  removePicture(index: number){
+  removePicture(index: number) {
     this.pictures.splice(index, 1);
     this.dialog.closeAll();
   }
@@ -211,22 +223,20 @@ export class CreateAdComponent implements OnInit {
   deleteSpec(key: string) {
     this.specs.delete(key);
     this.dialog.closeAll();
-  };
+  }
 
-  generateErrorForControl(control: AbstractControl){
-    if(control.errors?.['required']){
-      return "Required";
+  generateErrorForControl(control: AbstractControl) {
+    if (control.errors?.['required']) {
+      return 'Required';
     }
 
-    if(control.errors?.['min']){
-      return "Minimum value is 0";
+    if (control.errors?.['min']) {
+      return 'Minimum value is 0';
     }
 
-    if(control.errors?.['minlength']){
-      return "Must be at least 4 characters long!";
+    if (control.errors?.['minlength']) {
+      return 'Must be at least 4 characters long!';
     }
-
-
 
     return '';
   }
@@ -234,11 +244,10 @@ export class CreateAdComponent implements OnInit {
   private dynamicStateValidator(form: FormGroup): ValidatorFn {
     return (control: AbstractControl): ValidationErrors | null => {
       const type = form.get('type')?.value;
-      return control.value === 'both' && type !== 'buy'
+      return control.value === OglasiConstants.STATE_BOTH &&
+        type !== OglasiConstants.TYPE_BUY
         ? { invalidState: true }
         : null;
     };
   }
-
 }
-

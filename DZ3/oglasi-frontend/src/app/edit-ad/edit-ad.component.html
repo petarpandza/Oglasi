@@ -1,43 +1,83 @@
 <div class="main-container">
   <!-- main container for form -->
   <div class="form-container">
-
     <form *ngIf="adForm" [formGroup]="adForm" (ngSubmit)="onSubmit()">
-      <h2>Create Ad</h2>
+      <h2>Edit Ad</h2>
       <div class="name-price-div">
         <!-- ad name -->
         <div class="name-price-error-div">
-          <input type="text" id="title" placeholder="Title*" formControlName="title" required>
-          <div class="name-error" *ngIf="adForm.controls['title'].invalid && adForm.controls['title'].touched">
-            <span *ngIf="adForm.controls['title'].invalid">{{generateErrorForControl(adForm.controls['title'])}}</span>
+          <input
+            type="text"
+            id="title"
+            placeholder="Title*"
+            formControlName="title"
+            required
+          />
+          <div
+            class="name-error"
+            *ngIf="
+              adForm.controls['title'].invalid &&
+              adForm.controls['title'].touched
+            "
+          >
+            <span *ngIf="adForm.controls['title'].invalid">{{
+              generateErrorForControl(adForm.controls["title"])
+            }}</span>
           </div>
         </div>
-
 
         <!-- ad price -->
         <div class="name-price-error-div">
           <div class="price-input-wrapper">
             <span class="currency-symbol">€</span>
-            <input type="number" id="price" placeholder="Price*" formControlName="price" required min="0">
+            <input
+              type="number"
+              id="price"
+              placeholder="Price*"
+              formControlName="price"
+              required
+              min="0"
+            />
           </div>
-          <div class="name-error" *ngIf="adForm.controls['price'].invalid && adForm.controls['price'].touched">
-              <span *ngIf="adForm.controls['price'].invalid">{{generateErrorForControl(adForm.controls['price'])}}</span>
+          <div
+            class="name-error"
+            *ngIf="
+              adForm.controls['price'].invalid &&
+              adForm.controls['price'].touched
+            "
+          >
+            <span *ngIf="adForm.controls['price'].invalid">{{
+              generateErrorForControl(adForm.controls["price"])
+            }}</span>
           </div>
         </div>
-
       </div>
 
       <!-- ad shortDesc -->
-      <textarea class="shortDesc-input" id="shortDesc" placeholder="Short description..." formControlName="shortDesc"></textarea>
+      <textarea
+        class="shortDesc-input"
+        id="shortDesc"
+        placeholder="Short description..."
+        formControlName="shortDesc"
+      ></textarea>
 
       <!-- ad longDesc -->
-      <textarea class="longDesc-input" id="longDesc" placeholder="Long description..." formControlName="longDesc"></textarea>
+      <textarea
+        class="longDesc-input"
+        id="longDesc"
+        placeholder="Long description..."
+        formControlName="longDesc"
+      ></textarea>
 
       <div class="dropdown-div">
         <!-- ad city -->
         <mat-form-field appearance="fill">
           <mat-label>City</mat-label>
-          <mat-select formControlName="city" (selectionChange)="filterCities('')" (closed)="filterCities('')">
+          <mat-select
+            formControlName="city"
+            (selectionChange)="filterCities('')"
+            (closed)="filterCities('')"
+          >
             <!-- Search input inside dropdown -->
             <mat-option>
               <ngx-mat-select-search
@@ -46,16 +86,21 @@
                 placeholderLabel="Search cities..."
                 noEntriesFoundLabel="No cities found"
                 (input)="filterCities(searchQuery.value)"
-                >
+              >
               </ngx-mat-select-search>
             </mat-option>
 
             <!-- Filtered options -->
             <mat-option *ngFor="let city of filteredCities" [value]="city">
-              {{ city }}
+              {{ city.name }}
             </mat-option>
           </mat-select>
-          <mat-error class="dropdown-error" *ngIf="adForm.controls['city'].invalid && adForm.controls['city'].touched">
+          <mat-error
+            class="dropdown-error"
+            *ngIf="
+              adForm.controls['city'].invalid && adForm.controls['city'].touched
+            "
+          >
             Please select a city
           </mat-error>
         </mat-form-field>
@@ -64,10 +109,15 @@
         <mat-form-field appearance="fill">
           <mat-label>Type</mat-label>
           <mat-select formControlName="type">
-            <mat-option value="buy">Buy</mat-option>
-            <mat-option value="sell">Sell</mat-option>
+            <mat-option value="2">Buy</mat-option>
+            <mat-option value="1">Sell</mat-option>
           </mat-select>
-          <mat-error class="dropdown-error" *ngIf="adForm.controls['type'].invalid && adForm.controls['type'].touched">
+          <mat-error
+            class="dropdown-error"
+            *ngIf="
+              adForm.controls['type'].invalid && adForm.controls['type'].touched
+            "
+          >
             Please select a type
           </mat-error>
         </mat-form-field>
@@ -76,13 +126,19 @@
         <mat-form-field appearance="fill">
           <mat-label>State</mat-label>
           <mat-select formControlName="state">
-            <mat-option value="new">New</mat-option>
-            <mat-option value="used">Used</mat-option>
-            <mat-option value="both" [disabled]="adForm.get('type')?.value !== 'buy'">
+            <mat-option value="1">New</mat-option>
+            <mat-option value="2">Used</mat-option>
+            <mat-option *ngIf="+adForm.get('type')?.value === 2" value="3">
               Both
             </mat-option>
           </mat-select>
-          <mat-error class="dropdown-error" *ngIf="adForm.controls['state'].invalid && adForm.controls['state'].touched">
+          <mat-error
+            class="dropdown-error"
+            *ngIf="
+              adForm.controls['state'].invalid &&
+              adForm.controls['state'].touched
+            "
+          >
             Please select a state
           </mat-error>
         </mat-form-field>
@@ -90,74 +146,106 @@
 
       <!-- ad specifications -->
       <div class="specs-div">
-        <input type="text" id="specKey" placeholder="specification" formControlName="specKey">
-        <input type="text" id="specValue" placeholder="value" formControlName="specValue">
-        <button type="button" mat-mini-fab color="secondary" (click)="addSpec()">
+        <input
+          type="text"
+          id="specKey"
+          placeholder="specification"
+          formControlName="specKey"
+        />
+        <input
+          type="text"
+          id="specValue"
+          placeholder="value"
+          formControlName="specValue"
+        />
+        <button
+          type="button"
+          mat-mini-fab
+          color="secondary"
+          (click)="addSpec()"
+        >
           <mat-icon>add</mat-icon>
         </button>
       </div>
 
       <!-- ad image -->
       <div class="image-div">
-        <input type="text" id="image" placeholder="image URL" formControlName="image">
-        <button type="button" mat-mini-fab color="secondary" (click)="addPicture()">
+        <input
+          type="text"
+          id="image"
+          placeholder="image URL"
+          formControlName="image"
+        />
+        <button
+          type="button"
+          mat-mini-fab
+          color="secondary"
+          (click)="addPicture()"
+        >
           <mat-icon>add</mat-icon>
         </button>
       </div>
 
       <!-- buttons -->
-       <div class="submit-div">
-        <input type="button" value="Update" [disabled]="!adForm.valid" (click)="updateAd()">
-        <input type="button" value="Delete" (click)="deleteAd()">
-       </div>
+      <div class="submit-div">
+        <input
+          type="button"
+          value="Update"
+          [disabled]="!adForm.valid"
+          (click)="updateAd()"
+        />
+        <input type="button" value="Delete" (click)="deleteAd()" />
+      </div>
     </form>
   </div>
 
   <!-- right side for added elements -->
   <div class="info-container">
-
     <div class="spec-info-container">
       <!-- added specs list -->
       <div class="spec-info-div" *ngFor="let entry of specsEntries">
-        <div class="spec">
-          {{ entry[0] }} : {{ entry[1] }}
-        </div>
-        <button mat-mini-fab color="primary" (click)="openEditSpecModal(entry[0], entry[1], editSpecDialog)">
+        <div class="spec">{{ entry[0] }} : {{ entry[1] }}</div>
+        <button
+          mat-mini-fab
+          color="primary"
+          (click)="openEditSpecModal(entry[0], entry[1], editSpecDialog)"
+        >
           <mat-icon>edit</mat-icon>
         </button>
       </div>
-
     </div>
 
     <div class="picture-info-container-new">
       <!-- added Image list -->
-      <div class="picture-info-div-new" *ngFor="let picture of pictures; let i = index">
-
+      <div
+        class="picture-info-div-new"
+        *ngFor="let picture of pictures; let i = index"
+      >
         <div class="picture-preview-new">
           <img
-          src="{{ picture }}"
-          alt="Picture preview"
-          class="picture-preview-img-new"
-          (click)="openImageModal(picture, imageDialog)"
-          >
+            src="{{ picture }}"
+            alt="Picture preview"
+            class="picture-preview-img-new"
+            (click)="openImageModal(picture, imageDialog)"
+          />
         </div>
-        <button mat-mini-fab color="primary" (click)="openEditImageModal(picture, i, editImageDialog)" class="image-edit-button-new">
+        <button
+          mat-mini-fab
+          color="primary"
+          (click)="openEditImageModal(picture, i, editImageDialog)"
+          class="image-edit-button-new"
+        >
           <mat-icon>edit</mat-icon>
         </button>
-
       </div>
-
     </div>
-
   </div>
-
-
 </div>
 
 <!-- Image Preview Template -->
 <ng-template #imageDialog let-data>
   <div class="modal-container">
-    <img [src]="data" class="modal-image-preview" alt="Preview">
+    <img [src]="data" class="modal-image-preview" alt="Preview" />
   </div>
 </ng-template>
 
@@ -165,18 +253,30 @@
 <ng-template #editSpecDialog let-data>
   <div class="edit-modal-container">
     <div class="edit-modal-values">
-      <mat-form-field appearance="fill" class="modal-field" subscriptSizing="dynamic">
+      <mat-form-field
+        appearance="fill"
+        class="modal-field"
+        subscriptSizing="dynamic"
+      >
         <mat-label>Specification</mat-label>
-        <input matInput [(ngModel)]="data.key" readonly>
+        <input matInput [(ngModel)]="data.key" readonly />
       </mat-form-field>
-      <mat-form-field appearance="fill" class="modal-field" subscriptSizing="dynamic">
+      <mat-form-field
+        appearance="fill"
+        class="modal-field"
+        subscriptSizing="dynamic"
+      >
         <mat-label>Value</mat-label>
-        <input matInput [(ngModel)]="data.value">
+        <input matInput [(ngModel)]="data.value" />
       </mat-form-field>
     </div>
     <div class="modal-actions">
-      <button mat-raised-button color="primary" (click)="saveEditedSpec(data)">Save</button>
-      <button mat-raised-button color="warn" (click)="deleteSpec(data.key)">Delete</button>
+      <button mat-raised-button color="primary" (click)="saveEditedSpec(data)">
+        Save
+      </button>
+      <button mat-raised-button color="warn" (click)="deleteSpec(data.key)">
+        Delete
+      </button>
     </div>
   </div>
 </ng-template>
@@ -185,17 +285,34 @@
 <ng-template #editImageDialog let-data>
   <div class="editImage-modal-container">
     <div class="editImage-modal-image">
-      <img [src]="data.url" class="modal-image" alt="Preview">
+      <img [src]="data.url" class="modal-image" alt="Preview" />
     </div>
 
     <div class="editImage-modal-editable">
-      <mat-form-field appearance="fill" class="modal-field" subscriptSizing="dynamic" style="width: 100%;">
+      <mat-form-field
+        appearance="fill"
+        class="modal-field"
+        subscriptSizing="dynamic"
+        style="width: 100%"
+      >
         <mat-label>Image URL</mat-label>
-        <input matInput [(ngModel)]="data.url">
+        <input matInput [(ngModel)]="data.url" />
       </mat-form-field>
       <div class="modal-actions">
-        <button mat-raised-button color="primary" (click)="saveEditedImage(data)">Save</button>
-        <button mat-raised-button color="warn" (click)="removePicture(data.url)">Delete</button>
+        <button
+          mat-raised-button
+          color="primary"
+          (click)="saveEditedImage(data)"
+        >
+          Save
+        </button>
+        <button
+          mat-raised-button
+          color="warn"
+          (click)="removePicture(data.url)"
+        >
+          Delete
+        </button>
       </div>
     </div>
   </div>

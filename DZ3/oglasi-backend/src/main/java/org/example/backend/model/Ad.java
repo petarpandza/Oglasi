@@ -31,15 +31,15 @@ public class Ad {
     @Column(name = "price")
     private Float price;
 
-    @Column(name = "ad_type", nullable = false, length = 200)
-    private String adType;
+    @Column(name = "ad_type", nullable = false)
+    private Integer adType;
 
     @ColumnDefault("CURRENT_DATE")
     @Column(name = "upload_time", nullable = false)
     private Instant uploadTime;
 
-    @Column(name = "state", nullable = false, length = 200)
-    private String state;
+    @Column(name = "state", nullable = false)
+    private Integer state;
 
     @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
@@ -47,8 +47,8 @@ public class Ad {
     private User idUser;
 
     @JsonIgnoreProperties({"id_city"})
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "id_city", nullable = false)
-    private City idCity;
+    private City city;
 
 }

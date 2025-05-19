@@ -3,7 +3,16 @@ import { ActivatedRoute } from '@angular/router';
 import { adInfo } from '../models/ad-classes';
 import { AdService } from '../../services/ad.service';
 import { CommonModule } from '@angular/common';
-import { FormControl, FormGroup, ReactiveFormsModule, Validators, FormsModule, AbstractControl, ValidationErrors, ValidatorFn } from "@angular/forms";
+import {
+  FormControl,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+  FormsModule,
+  AbstractControl,
+  ValidationErrors,
+  ValidatorFn,
+} from '@angular/forms';
 import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import { MatButtonModule } from '@angular/material/button';
@@ -13,7 +22,8 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 import { CityService } from '../../services/city.service';
-
+import { City } from '../models/city';
+import { OglasiConstants } from '../../oglasi-constants';
 
 @Component({
   selector: 'app-edit-ad',
@@ -27,77 +37,95 @@ import { CityService } from '../../services/city.service';
     ReactiveFormsModule,
     MatButtonModule,
     MatIconModule,
-    FormsModule
+    FormsModule,
   ],
   templateUrl: './edit-ad.component.html',
-  styleUrl: './edit-ad.component.css'
+  styleUrl: './edit-ad.component.css',
 })
 export class EditAdComponent implements OnInit {
-
-  adId! : number;
+  adId!: number;
 
   adForm!: FormGroup;
-  cities: string[] = [];
-  filteredCities: string[] = [];
+  cities: City[] = [];
+  filteredCities: City[] = [];
   cityFilterCtrl: FormControl = new FormControl();
   private _onDestroy = new Subject<void>();
-  specs! : Map<string, string>;
+  specs!: Map<string, string>;
   pictures!: string[];
   editSpecData = { key: '', value: '' };
 
-  constructor(private adService : AdService, private route: ActivatedRoute, private dialog: MatDialog, private router: Router, private cityService : CityService) {}
+  constructor(
+    private adService: AdService,
+    private route: ActivatedRoute,
+    private dialog: MatDialog,
+    private router: Router,
+    private cityService: CityService
+  ) {}
 
   ngOnInit(): void {
     this.adId = Number(this.route.snapshot.paramMap.get('id'));
     this.adService.getAdById(this.adId).subscribe({
-      next: (ad : adInfo) => {
+      next: (ad: adInfo) => {
+        const matchedCity = this.cities.find(
+          (city) => city.id_city === ad.city.id_city
+        );
         this.adForm = new FormGroup({
-          title: new FormControl(ad.title, [Validators.required, Validators.minLength(4)]),
-          price: new FormControl(ad.price, [Validators.required, Validators.min(0)]),
+          title: new FormControl(ad.title, [
+            Validators.required,
+            Validators.minLength(4),
+          ]),
+          price: new FormControl(ad.price, [
+            Validators.required,
+            Validators.min(0),
+          ]),
           shortDesc: new FormControl(ad.shortDesc),
           longDesc: new FormControl(ad.longDesc),
-          city: new FormControl(ad.city, [Validators.required]),
-          type: new FormControl(ad.type, [Validators.required]),
-          state: new FormControl(ad.state, [Validators.required]),
+          city: new FormControl(matchedCity, [Validators.required]),
+          type: new FormControl(ad.type, [Validators.min(1)]),
+          state: new FormControl(ad.state, [Validators.min(1)]),
           specKey: new FormControl(''),
           specValue: new FormControl(''),
-          image: new FormControl('')
+          image: new FormControl(''),
         });
         this.specs = new Map<string, string>(Object.entries(ad.specs));
         this.pictures = ad.pictures;
-        this.adForm.get('state')?.addValidators(this.dynamicStateValidator(this.adForm));
-        this.adForm.get('type')?.valueChanges.subscribe(type => {
+        this.adForm
+          .get('state')
+          ?.addValidators(this.dynamicStateValidator(this.adForm));
+        this.adForm.get('type')?.valueChanges.subscribe((type) => {
           const stateControl = this.adForm.get('state');
           stateControl?.enable();
-          if (type !== 'buy' && stateControl?.value === 'both') {
-            stateControl.setValue('');
+          if (
+            type !== OglasiConstants.TYPE_BUY &&
+            +stateControl?.value === OglasiConstants.STATE_BOTH
+          ) {
+            stateControl?.setValue(0);
           }
           stateControl?.updateValueAndValidity();
         });
-      }
+      },
     });
     this.cityService.getCities().subscribe({
-      next: (cities: string[]) => {
+      next: (cities: City[]) => {
         this.cities = cities;
         this.filteredCities = cities;
       },
       error: (err) => {
-        console.error("Error fetching cities:", err);
-      }
+        console.error('Error fetching cities:', err);
+      },
     });
   }
 
-  onSubmit(){
-  }
+  onSubmit() {}
 
-  filterCities(searchQuery : string){
+  filterCities(searchQuery: string) {
     const lowerQuery = searchQuery.toLowerCase().trim();
-    this.filteredCities = this.cities.filter(city =>
-      city.toLowerCase().includes(lowerQuery)
+    this.filteredCities = this.cities.filter((city) =>
+      city.name.toLowerCase().includes(lowerQuery)
     );
   }
 
-  updateAd(){
+  updateAd() {
     const updatedAd = new adInfo(
       this.adId,
       this.adForm.get('title')?.value,
@@ -114,15 +142,15 @@ export class EditAdComponent implements OnInit {
     this.adService.updateAd(updatedAd).subscribe({
       next: () => {
         this.router.navigate(['/profile']);
-      }
+      },
     });
   }
 
-  deleteAd(){
+  deleteAd() {
     this.adService.deleteAd(this.adId).subscribe({
       next: () => {
         this.router.navigate(['/profile']);
-      }
+      },
     });
   }
 
@@ -134,26 +162,25 @@ export class EditAdComponent implements OnInit {
   private dynamicStateValidator(form: FormGroup): ValidatorFn {
     return (control: AbstractControl): ValidationErrors | null => {
       const type = form.get('type')?.value;
-      return control.value === 'both' && type !== 'buy'
+      return control.value === OglasiConstants.STATE_BOTH &&
+        type !== OglasiConstants.TYPE_BUY
         ? { invalidState: true }
         : null;
     };
   }
 
-  generateErrorForControl(control: AbstractControl){
-    if(control.errors?.['required']){
-      return "Required";
+  generateErrorForControl(control: AbstractControl) {
+    if (control.errors?.['required']) {
+      return 'Required';
     }
 
-    if(control.errors?.['min']){
-      return "Minimum value is 0";
+    if (control.errors?.['min']) {
+      return 'Minimum value is 0';
     }
 
-    if(control.errors?.['minlength']){
-      return "Must be at least 4 characters long!";
+    if (control.errors?.['minlength']) {
+      return 'Must be at least 4 characters long!';
     }
-
-
 
     return '';
   }
@@ -166,7 +193,7 @@ export class EditAdComponent implements OnInit {
       maxWidth: '90vw',
       maxHeight: '90vh',
       width: 'auto',
-      height: 'auto'
+      height: 'auto',
     });
   }
 
@@ -178,32 +205,36 @@ export class EditAdComponent implements OnInit {
       disableClose: false,
       height: '200px',
       width: '500px',
-    })
-  };
-
-  openEditImageModal(url: string, index: number, dialogTemplate: TemplateRef<any>){
-      this.dialog.open(dialogTemplate, {
-        data: { url: url, index: index },
-        panelClass: 'no-border-dialog',
-        disableClose: false,
-        height: '400px',
-        width: '800px',
     });
-  };
+  }
 
-  saveEditedSpec(data: { key: string, value: string }) {
+  openEditImageModal(
+    url: string,
+    index: number,
+    dialogTemplate: TemplateRef<any>
+  ) {
+    this.dialog.open(dialogTemplate, {
+      data: { url: url, index: index },
+      panelClass: 'no-border-dialog',
+      disableClose: false,
+      height: '400px',
+      width: '800px',
+    });
+  }
+
+  saveEditedSpec(data: { key: string; value: string }) {
     this.specs.set(data.key, data.value);
     this.dialog.closeAll();
-  };
+  }
 
-  saveEditedImage(data: { url: string; index: number }){
+  saveEditedImage(data: { url: string; index: number }) {
     if (data.url.trim()) {
       this.pictures[data.index] = data.url.trim();
       this.dialog.closeAll();
     }
-  };
+  }
 
-  removePicture(index: number){
+  removePicture(index: number) {
     this.pictures.splice(index, 1);
     this.dialog.closeAll();
   }
@@ -211,9 +242,9 @@ export class EditAdComponent implements OnInit {
   deleteSpec(key: string) {
     this.specs.delete(key);
     this.dialog.closeAll();
-  };
+  }
 
-  addSpec(){
+  addSpec() {
     const key = this.adForm.get('specKey')?.value?.trim();
     const value = this.adForm.get('specValue')?.value?.trim();
     if (key && value) {
@@ -224,14 +255,14 @@ export class EditAdComponent implements OnInit {
   }
 
   get specsEntries() {
-    return this.specs ?  Array.from(this.specs.entries()) : [];
+    return this.specs ? Array.from(this.specs.entries()) : [];
   }
 
   removeSpec(key: string): void {
     this.specs.delete(key);
   }
 
-  addPicture(){
+  addPicture() {
     const picture = this.adForm.get('image')?.value?.trim();
     if (picture) {
       this.pictures.push(picture);

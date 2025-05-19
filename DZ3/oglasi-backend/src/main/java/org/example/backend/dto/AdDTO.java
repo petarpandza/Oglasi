@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.example.backend.model.Ad;
+import org.example.backend.model.City;
 
 import java.time.Instant;
 import java.util.List;
@@ -20,9 +21,9 @@ public class AdDTO {
     private String shortDesc;
     private String longDesc;
     private double price;
-    private String type;
-    private String state;
-    private String city;
+    private Integer type;
+    private Integer state;
+    private City city;
     private Instant uploadTime;
     private Map<String, String> specs;
     private List<String> pictures;
@@ -36,6 +37,6 @@ public class AdDTO {
         this.type = ad.getAdType();
         this.state = ad.getState();
         this.uploadTime = ad.getUploadTime();
-        this.city = ad.getIdCity().getName();
+        this.city = ad.getCity();
     }
 }

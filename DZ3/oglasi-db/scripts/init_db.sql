@@ -1,11 +1,3 @@
--- $ psql -U postgres -d postgres -hlocalhost -p5432 -f Oglasi-InicijalizacijaBaze.sql
-
--- DROP DATABASE IF EXISTS "oglasi-db";
-
--- CREATE DATABASE "oglasi-db";
-
--- \c "oglasi-db"
-
 CREATE SCHEMA core;
 
 CREATE TABLE core.user (
@@ -27,9 +19,9 @@ CREATE TABLE core.ad (
                          short_desc VARCHAR(1000) NULL,
                          long_desc VARCHAR(5000) NULL,
                          price REAL NULL, -- NULL - po dogovoru
-                         ad_type VARCHAR(200) NOT NULL, -- 1 = prodaja, 2 = potražnja
+                         ad_type INTEGER NOT NULL, -- 1 = prodaja, 2 = potražnja
                          upload_time TIMESTAMP NOT NULL DEFAULT CURRENT_DATE,
-                         state VARCHAR(200) NOT NULL, -- 1 = novo, 2 = korišteno
+                         state INTEGER NOT NULL, -- 1 = novo, 2 = korišteno, 3 = oboje
                          id_user INTEGER NOT NULL REFERENCES core.user(id_user) ON DELETE CASCADE,
                          id_city INTEGER NOT NULL REFERENCES core.city(id_city)
 );

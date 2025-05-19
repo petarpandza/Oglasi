@@ -1,18 +1,20 @@
+import { City } from "./city";
+
 export class adInfo {
   id: number;
   title: string;
   shortDesc: string;
   longDesc: string;
-  city: string;
-  type: string;
-  state: string;
+  city: City;
+  type: number;
+  state: number;
   price: number;
   specs: Map<string, string>;
   pictures: string[];
 
 
 
-  constructor(id:number, title: string, shortDesc: string, longDesc: string, city: string, type: string, state: string, price: number, specs: Map<string, string>, pictures: string[]) {
+  constructor(id:number, title: string, shortDesc: string, longDesc: string, city: City, type: number, state: number, price: number, specs: Map<string, string>, pictures: string[]) {
     this.id = id;
     this.title = title;
     this.shortDesc = shortDesc;
