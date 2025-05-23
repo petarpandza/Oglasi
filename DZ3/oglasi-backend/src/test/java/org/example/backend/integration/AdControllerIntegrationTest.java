@@ -1,5 +1,7 @@
 package org.example.backend.integration;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.example.backend.model.Ad;
 import org.example.backend.model.City;
 import org.example.backend.model.User;
@@ -17,8 +19,11 @@ import java.time.Instant;
 import java.time.LocalDate;
 import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Objects;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -43,13 +48,13 @@ public class AdControllerIntegrationTest {
     @BeforeEach
     void setUp() {
         userRepository.deleteAll();
-        User user1 = new User(null, "user1", "password1", false, LocalDate.now(), new LinkedHashSet<>());
-        User user2 = new User(null, "user2", "password2", false, LocalDate.now(), new LinkedHashSet<>());
+        User user1 = userRepository.save(new User(null, "user1", "password1", false, LocalDate.now(), new LinkedHashSet<>()));
+        User user2 = userRepository.save(new User(null, "user2", "password2", false, LocalDate.now(), new LinkedHashSet<>()));
         userRepository.save(user1);
         userRepository.save(user2);
 
         cityRepository.deleteAll();
-        City zagreb = new City(1L, "Zagreb");
+        City zagreb = cityRepository.save(new City(1L, "Zagreb"));
         cityRepository.save(zagreb);
 
         adRepository.deleteAll();
@@ -79,6 +84,40 @@ public class AdControllerIntegrationTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.length()").value(4))
                 .andExpect(jsonPath("$[2].title").value("Farbanje zidova"));
+    }
+
+    @Test
+    @Order(3)
+    void shouldDeleteAd() throws Exception {
+        Ad adToDelete = adRepository.findAll().get(0);
+        mockMvc.perform(delete("/ad/deleteAd/" + adToDelete.getId()))
+                .andExpect(status().isNoContent());
+
+        List<Ad> ads = adRepository.findAll();
+        assertEquals(3, ads.size());
+    }
+
+    @Test
+    @Order(4)
+    void shouldCreateAd() throws Exception {
+        User user = userRepository.findAll().get(0);
+        City city = cityRepository.findAll().get(0);
+        assertNotEquals(null, user);
+        assertNotEquals(null, city);
+        Ad newAd = new Ad(null, "Test Ad", "Test Description", null, 100.0f, 1, 1, Instant.now(), user, city);
+        ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.registerModule(new JavaTimeModule());
+        String adJson = objectMapper.writeValueAsString(newAd);
+        System.out.println("Ad JSON: " + adJson);
+
+        mockMvc.perform(post("/ad/createAd")
+                        .contentType("application/json")
+                        .content(adJson))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.title").value("Test Ad"));
+
+        List<Ad> ads = adRepository.findAll();
+        assertEquals(5, ads.size());
     }
 
 }
