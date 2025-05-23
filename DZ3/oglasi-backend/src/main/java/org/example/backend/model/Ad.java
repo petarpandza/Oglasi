@@ -21,7 +21,8 @@ import java.time.Instant;
 @NoArgsConstructor
 public class Ad {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ad_id_seq")
+    @SequenceGenerator(name = "ad_id_seq", sequenceName = "core.ad_id_seq", allocationSize = 1, initialValue = 100000)
     @Column(name = "id_ad", nullable = false)
     private Integer id;
 
