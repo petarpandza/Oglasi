@@ -24,7 +24,7 @@ public class Property {
     @Column(name = "property_name", nullable = false)
     private String propertyName;
 
-    @Column(name = "value", nullable = false)
-    private String value;
+    @Column(name = "property_value", nullable = false)
+    private String propertyValue;
 
 }

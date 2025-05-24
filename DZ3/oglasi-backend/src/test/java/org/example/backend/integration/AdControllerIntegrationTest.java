@@ -97,15 +97,10 @@ public class AdControllerIntegrationTest {
     @Test
     @Order(4)
     void shouldCreateAd() throws Exception {
-        User user = userRepository.findAll().get(0);
-        City city = cityRepository.findAll().get(0);
-        assertNotEquals(null, user);
-        assertNotEquals(null, city);
-        Ad newAd = new Ad(null, "Test Ad", "Test Description", null, 100.0f, 1, 1, Instant.now(), user, city);
-        ObjectMapper objectMapper = new ObjectMapper();
-        objectMapper.registerModule(new JavaTimeModule());
-        String adJson = objectMapper.writeValueAsString(newAd);
-        System.out.println("Ad JSON: " + adJson);
+        cityRepository.save(new City(50L, "Test City"));
+        String adJson = """
+                {"id":0,"title":"Test Ad","shortDesc":"ShortDesc","longDesc":null,"city":{"id_city":50,"name":"Test City"},"type":"2","state":"1","price":100,"specs":{},"pictures":[]}
+                """;
 
         mockMvc.perform(post("/ad/createAd")
                         .contentType("application/json")
@@ -115,6 +110,28 @@ public class AdControllerIntegrationTest {
 
         List<Ad> ads = adRepository.findAll();
         assertEquals(5, ads.size());
+    }
+
+    @Test
+    @Order(5)
+    void shouldUpdateAd() throws Exception {
+        cityRepository.save(new City(50L, "Test City"));
+        Ad adToUpdate = adRepository.findAll().get(0);
+        String updatedAdJson = """
+                {"id":%d,"title":"Updated Ad","shortDesc":"Updated Short Desc","longDesc":"Updated Long Desc","city":{"id_city":50,"name":"Test City"},"type":"2","state":"1","price":200,"specs":{},"pictures":[]}
+                """.formatted(adToUpdate.getId());
+
+        mockMvc.perform(patch("/ad/updateAd")
+                        .contentType("application/json")
+                        .content(updatedAdJson))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.title").value("Updated Ad"))
+                .andExpect(jsonPath("$.shortDesc").value("Updated Short Desc"));
+
+        Ad updatedAd = adRepository.findById((long)adToUpdate.getId()).orElseThrow();
+        assertEquals("Updated Ad", updatedAd.getTitle());
+        assertEquals("Updated Short Desc", updatedAd.getShortDesc());
+        assertEquals("Updated Long Desc", updatedAd.getLongDesc());
     }
 
 }
