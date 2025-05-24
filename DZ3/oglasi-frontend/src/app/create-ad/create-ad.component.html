@@ -81,11 +81,10 @@
             <!-- Search input inside dropdown -->
             <mat-option>
               <ngx-mat-select-search
-                #searchQuery
-                [formControl]="cityFilterCtrl"
+                #citySearchQuery
                 placeholderLabel="Search cities..."
                 noEntriesFoundLabel="No cities found"
-                (input)="filterCities(searchQuery.value)"
+                (input)="filterCities(citySearchQuery.value)"
               >
               </ngx-mat-select-search>
             </mat-option>
@@ -198,9 +197,13 @@
 
   <!-- right side for added elements -->
   <div class="info-container">
+    <mat-form-field class="search-bar" subscriptSizing="dynamic">
+      <mat-label>Search specs</mat-label>
+      <input #specSearchQuery type="text" matInput (input)="filterSpecs(specSearchQuery.value)" >
+    </mat-form-field>
     <div class="spec-info-container">
       <!-- added specs list -->
-      <div class="spec-info-div" *ngFor="let entry of specsEntries">
+      <div class="spec-info-div" *ngFor="let entry of filteredSpecsEntries">
         <div class="spec">{{ entry[0] }} : {{ entry[1] }}</div>
         <button
           mat-mini-fab

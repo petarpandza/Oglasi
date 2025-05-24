@@ -45,9 +45,9 @@ export class CreateAdComponent implements OnInit {
   adForm!: FormGroup;
   cities: City[] = [];
   filteredCities: City[] = [];
-  cityFilterCtrl: FormControl = new FormControl();
   private _onDestroy = new Subject<void>();
   specs = new Map<string, string>();
+  filteredSpecs = new Map<string, string>();
   pictures: string[] = [];
   editSpecData = { key: '', value: '' };
 
@@ -107,6 +107,15 @@ export class CreateAdComponent implements OnInit {
     );
   }
 
+  filterSpecs(searchQuery: string) {
+    const lowerQuery = searchQuery.toLowerCase().trim();
+    this.filteredSpecs = new Map(
+      Array.from(this.specs.entries()).filter(([key, value]) =>
+        key.toLowerCase().includes(lowerQuery)
+      )
+    );
+  }
+
   addPicture() {
     const picture = this.adForm.get('image')?.value?.trim();
     if (picture) {
@@ -120,17 +129,20 @@ export class CreateAdComponent implements OnInit {
     const value = this.adForm.get('specValue')?.value?.trim();
     if (key && value) {
       this.specs.set(key, value);
+      this.filteredSpecs.set(key, value);
       this.adForm.get('specKey')?.setValue('');
       this.adForm.get('specValue')?.setValue('');
     }
   }
 
-  get specsEntries() {
-    return Array.from(this.specs.entries());
+  get filteredSpecsEntries() {
+    return Array.from(this.filteredSpecs.entries());
   }
 
-  removeSpec(key: string): void {
+  deleteSpec(key: string): void {
     this.specs.delete(key);
+    this.filteredSpecs.delete(key);
+    this.dialog.closeAll();
   }
 
   ngOnDestroy() {
@@ -205,6 +217,7 @@ export class CreateAdComponent implements OnInit {
 
   saveEditedSpec(data: { key: string; value: string }) {
     this.specs.set(data.key, data.value);
+    this.filteredSpecs.set(data.key, data.value);
     this.dialog.closeAll();
   }
 
@@ -217,11 +230,6 @@ export class CreateAdComponent implements OnInit {
 
   removePicture(index: number) {
     this.pictures.splice(index, 1);
-    this.dialog.closeAll();
-  }
-
-  deleteSpec(key: string) {
-    this.specs.delete(key);
     this.dialog.closeAll();
   }
 

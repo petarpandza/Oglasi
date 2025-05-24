@@ -48,9 +48,9 @@ export class EditAdComponent implements OnInit {
   adForm!: FormGroup;
   cities: City[] = [];
   filteredCities: City[] = [];
-  cityFilterCtrl: FormControl = new FormControl();
   private _onDestroy = new Subject<void>();
   specs!: Map<string, string>;
+  filteredSpecs!: Map<string, string>;
   pictures!: string[];
   editSpecData = { key: '', value: '' };
 
@@ -88,6 +88,7 @@ export class EditAdComponent implements OnInit {
           image: new FormControl(''),
         });
         this.specs = new Map<string, string>(Object.entries(ad.specs));
+        this.filteredSpecs = new Map<string, string>(Object.entries(ad.specs));
         this.pictures = ad.pictures;
         this.adForm
           .get('state')
@@ -122,6 +123,15 @@ export class EditAdComponent implements OnInit {
     const lowerQuery = searchQuery.toLowerCase().trim();
     this.filteredCities = this.cities.filter((city) =>
       city.name.toLowerCase().includes(lowerQuery)
+    );
+  }
+
+  filterSpecs(searchQuery: string) {
+    const lowerQuery = searchQuery.toLowerCase().trim();
+    this.filteredSpecs = new Map(
+      Array.from(this.specs.entries()).filter(([key, value]) =>
+        key.toLowerCase().includes(lowerQuery)
+      )
     );
   }
 
@@ -224,6 +234,7 @@ export class EditAdComponent implements OnInit {
 
   saveEditedSpec(data: { key: string; value: string }) {
     this.specs.set(data.key, data.value);
+    this.filteredSpecs.set(data.key, data.value);
     this.dialog.closeAll();
   }
 
@@ -241,6 +252,7 @@ export class EditAdComponent implements OnInit {
 
   deleteSpec(key: string) {
     this.specs.delete(key);
+    this.filteredSpecs.delete(key);
     this.dialog.closeAll();
   }
 
@@ -249,17 +261,14 @@ export class EditAdComponent implements OnInit {
     const value = this.adForm.get('specValue')?.value?.trim();
     if (key && value) {
       this.specs.set(key, value);
+      this.filteredSpecs.set(key, value);
       this.adForm.get('specKey')?.setValue('');
       this.adForm.get('specValue')?.setValue('');
     }
   }
 
-  get specsEntries() {
-    return this.specs ? Array.from(this.specs.entries()) : [];
-  }
-
-  removeSpec(key: string): void {
-    this.specs.delete(key);
+  get filteredSpecsEntries() {
+    return this.filteredSpecs ? Array.from(this.filteredSpecs.entries()) : [];
   }
 
   addPicture() {
