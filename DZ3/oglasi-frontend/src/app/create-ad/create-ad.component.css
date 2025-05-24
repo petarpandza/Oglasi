@@ -78,7 +78,8 @@ ngx-mat-select-search{
   align-items:center;
   justify-content:space-evenly;
   flex-direction:column;
-  overflow:auto
+  overflow:auto;
+  border-bottom: 3px solid black;
 }
 .picture-info-container{
   flex-grow:1;
