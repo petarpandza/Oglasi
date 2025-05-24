@@ -19,7 +19,6 @@ import java.util.Optional;
 public class AdService {
 
     private final AdRepository adRepository;
-    private final CityRepository cityRepository;
     private final PropertyService propertyService;
     private final UserRepository userRepository;
     private final ImageService imageService;
