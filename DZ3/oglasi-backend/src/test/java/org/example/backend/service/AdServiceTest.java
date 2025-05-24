@@ -71,7 +71,7 @@ public class AdServiceTest {
         AdDTO adDTO = new AdDTO(ad);
 
         Mockito.when(adRepository.save(Mockito.any())).thenReturn(ad);
-        Mockito.when(userRepository.findById(1L)).thenReturn(Optional.of(new User()));
+        Mockito.when(userRepository.findAll()).thenReturn(List.of(new User()));
         Mockito.when(imageService.parseImages(Mockito.any(), Mockito.any())).thenReturn(List.of());
         Mockito.when(propertyService.parseProperties(Mockito.any(), Mockito.any())).thenReturn(List.of());
 

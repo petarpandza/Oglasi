@@ -49,7 +49,7 @@ CREATE TABLE core.property (
                                id_property SERIAL PRIMARY KEY,
                                id_ad INTEGER NOT NULL REFERENCES core.ad(id_ad) ON DELETE CASCADE,
                                property_name VARCHAR(255) NOT NULL,
-                               value VARCHAR(255) NOT NULL
+                               property_value VARCHAR(255) NOT NULL
 );
 
 CREATE SEQUENCE core.user_id_seq START 100000 INCREMENT 1;
@@ -646,7 +646,7 @@ VALUES (
     1
 );
 
-INSERT INTO core.property (id_ad, property_name, value) VALUES
+INSERT INTO core.property (id_ad, property_name, property_value) VALUES
 (1, 'Broj brzina', '7'),
 (2, 'Površina', '50m2'),
 (2, 'Broj soba', '2'),

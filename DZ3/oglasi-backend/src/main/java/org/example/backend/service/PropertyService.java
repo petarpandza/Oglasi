@@ -30,7 +30,7 @@ public class PropertyService {
                 .map(entry -> {
                     Property p = new Property();
                     p.setPropertyName(entry.getKey());
-                    p.setValue(entry.getValue());
+                    p.setPropertyValue(entry.getValue());
                     p.setIdAd(ad);
                     return p;
                 })

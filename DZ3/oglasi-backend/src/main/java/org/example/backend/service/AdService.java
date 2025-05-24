@@ -27,8 +27,7 @@ public class AdService {
         Ad ad = new Ad();
 
         //hard coded user
-        User user = userRepository.findById(1L)
-                .orElseThrow(() -> new RuntimeException("User not found"));
+        User user = userRepository.findAll().get(0);
         ad.setIdUser(user);
 
         ad.setTitle(adDTO.getTitle());
@@ -74,7 +73,7 @@ public class AdService {
         AdDTO realAd = new AdDTO(ad.get());
         Map<String, String> specs = new HashMap<>();
         for (Property p : propertyService.getPropertiesByAd(ad.get())) {
-            specs.put(p.getPropertyName(), p.getValue());
+            specs.put(p.getPropertyName(), p.getPropertyValue());
         }
         List<String> pictures = imageService.getImagesByAd(ad.get()).stream()
                 .map(Image::getImageData)
@@ -101,7 +100,7 @@ public class AdService {
 
             Map<String, String> specs = new HashMap<>();
             for (Property p : propertyService.updateAdProperties(adFromDB, adDTO)) {
-                specs.put(p.getPropertyName(), p.getValue());
+                specs.put(p.getPropertyName(), p.getPropertyValue());
             }
             List<String> pictures = imageService.updateAdImages(adFromDB, adDTO).stream()
                     .map(Image::getImageData)
