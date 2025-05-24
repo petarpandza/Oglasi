@@ -50,12 +50,9 @@ public class AdControllerIntegrationTest {
         userRepository.deleteAll();
         User user1 = userRepository.save(new User(null, "user1", "password1", false, LocalDate.now(), new LinkedHashSet<>()));
         User user2 = userRepository.save(new User(null, "user2", "password2", false, LocalDate.now(), new LinkedHashSet<>()));
-        userRepository.save(user1);
-        userRepository.save(user2);
 
         cityRepository.deleteAll();
         City zagreb = cityRepository.save(new City(1L, "Zagreb"));
-        cityRepository.save(zagreb);
 
         adRepository.deleteAll();
         List<Ad> ads = List.of(
