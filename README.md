@@ -7,30 +7,26 @@ Sustav za objavu i pregled oglasa
 ## Pokretanje aplikacije:
 
 ### Baza podataka:
-```
-bash
+```bash
 $ cd DZ3/oglasi-db
 $ ./start_db.sh
 ```
 
 ### Backend:
-```
-bash
+```bash
 $ cd DZ3/oglasi-backend
 $ gradle bootRun
 ```
 
 ### Frontend:
-```
-bash
+```bash
 $ cd DZ3/oglasi-frontend
 $ npm install
 $ ng serve
 ```
 
 ## Prije pokretanja potrebno stvoriti env datoteku u DZ3 folderu:
-```
-bash
+```bash
 $ touch DZ3/env.properties
 ```
 
