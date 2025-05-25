@@ -93,6 +93,7 @@ export class EditAdComponent implements OnInit {
               image: new FormControl(''),
             });
             this.specs = new Map<string, string>(Object.entries(ad.specs));
+            this.filteredSpecs = this.specs;
             this.pictures = ad.pictures;
             this.adForm
               .get('state')
